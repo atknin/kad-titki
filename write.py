@@ -1,18 +1,25 @@
 import sys
 import re
-from xlwt import Workbook, easyxf
+from xlwt import Workbook, easyxf,Formula
 from os import walk
 import json
 
 def write_head(ws):
-    ws.write(0, 0, 'Дата иска')
-    ws.write(0, 1, 'ИНН Ответчика')
-    ws.write(0, 2, 'С кем спор (Истец)')
-    ws.write(0, 3, 'ИНН ГЕНДИРА Ответчика')
-    ws.write(0, 4, 'ФИО Гендира Ответчика')
-    ws.write(0, 5, 'Номера телефонов ЛПР')
-    ws.write(0, 6, 'Цена иска')
-    ws.write(0, 7, 'Номер дела')
+    heads = [
+        'Ответчик', 
+        'ИНН Ответчика',
+        'Дата иска'
+        'ИНН Ответчика',
+        'С кем спор (Истец)',
+        'ИНН ГЕНДИРА Ответчика',
+        'ФИО Гендира Ответчика',
+        'Номера телефонов ЛПР',
+        'Цена иска',
+        'Номер дела'
+    ]
+    for i in range(9):
+
+        ws.write(0, i, heads[i])
 
     for i in range(7):
         col = ws.col(i)
@@ -21,14 +28,18 @@ def write_head(ws):
     return ws
 
 def doxl(data, ws,r = 1):
-    ws.write(r, 0, data.get('1'))
-    ws.write(r, 1, data.get('otvetchik-inn'))
-    ws.write(r, 2, data.get('istec'))
-    ws.write(r, 3, data.get('1'))
+    uid = data.get('uid')
+    case = data.get('case')
+    n = "HYPERLINK"
+    ws.write(r, 0, data.get('otvetchik'))
+    ws.write(r, 1, data.get('1'))
+    ws.write(r, 2, data.get('otvetchik-inn'))
+    ws.write(r, 3, data.get('istec'))
     ws.write(r, 4, data.get('1'))
     ws.write(r, 5, data.get('1'))
     ws.write(r, 6, data.get('1'))
-    ws.write(r, 7, 'https://kad.arbitr.ru/'+data.get('uid'))
+    ws.write(r, 7, data.get('1'))
+    ws.write(r, 8,  Formula(n + f'("https://kad.arbitr.ru/{uid}";"{case}")'))
     return ws
 
 def to_excel(list_inn):
