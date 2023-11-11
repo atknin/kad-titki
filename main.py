@@ -14,9 +14,7 @@ import subprocess
 from getcaseid import process
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 from seleniumbase import Driver
-
-
-proxy = {'id': 60539, 'ip': 'wproxy.site', 'port': '16691', 'login': 'fey8Me', 'password': 'yVcexzYVaDTU', 'source': 2, 'added_at': '2019-12-15T22:29:01.747Z', 'last_attempt_at': '2020-01-10T09:29:04.635Z', 'is_valid': True, 'valid_index': 0}
+proxy = {'id': 60539, 'ip': 'wproxy.site', 'port': '11996', 'login': 'PywyMF', 'password': 'uKgYE8eH3am2', 'source': 2, 'added_at': '2019-12-15T22:29:01.747Z', 'last_attempt_at': '2020-01-10T09:29:04.635Z', 'is_valid': True, 'valid_index': 0}
 proxy_server = f'http://{proxy["ip"]}:{proxy["port"]}'
 proxy_server_full = f'{proxy["login"]}:{proxy["password"]}@{proxy["ip"]}:{proxy["port"]}'
 proxy_auth = {'login':f'{proxy["login"]}','password':f'{proxy["password"]}'}
