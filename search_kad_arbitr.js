@@ -3,8 +3,8 @@
     $('#sug-participants .tag textarea').text('[inn_ogrn]');
     $('#sug-participants .tag textarea').attr('class','');
 
-    $('#caseCourt input').val('АС города Москвы');
-    $('#caseCourt input').attr('class','');
+    // $('#caseCourt input').val('АС города Москвы');
+    // $('#caseCourt input').attr('class','');
 
     $('#b-form-submit button').click();
     $('#b-form-submit button').click();
