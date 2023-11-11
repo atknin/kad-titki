@@ -35,11 +35,10 @@ def to_excel(list_inn):
     wb = Workbook()
     ws = {}
     for inn in list_inn:
-        print(inn)
 
         ws[inn] = wb.add_sheet(inn)
         ws[inn] = write_head(ws[inn])
-        path = f"data/"
+        path = f"data/{inn}/"
         f = []
         count = 0
         for (dirpath, dirnames, filenames) in walk(path):
