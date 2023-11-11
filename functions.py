@@ -61,10 +61,12 @@ def parse_cases_list(content):
         element = {}
         element['uid'] = line.find('a')['href'].split('/')[-1]
         element['case'] = line.find('a').text.strip()
+                  
         
         court = line.find("td",{'class':'court'}).find_all('div')
         element['court'] = court[2]['title'] if len(court)==3 else court[1]['title']
         
+        element['hearingDate'] = line.find("div",{'class':'civil'})['title'] if line.find("div",{'class':'civil'})  else None
         element['judge'] = line.find("div",{'class':'judge'})['title'] if line.find("div",{'class':'judge'}) else None
     
         istec = line.find("td",{'class':'plaintiff'}).find("span",{'class':'js-rolloverHtml'})

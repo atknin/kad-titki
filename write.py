@@ -7,8 +7,7 @@ import json
 def write_head(ws):
     heads = [
         'Ответчик', 
-        'ИНН Ответчика',
-        'Дата иска'
+        'Дата иска',
         'ИНН Ответчика',
         'С кем спор (Истец)',
         'ИНН ГЕНДИРА Ответчика',
@@ -32,14 +31,14 @@ def doxl(data, ws,r = 1):
     case = data.get('case')
     n = "HYPERLINK"
     ws.write(r, 0, data.get('otvetchik'))
-    ws.write(r, 1, data.get('1'))
+    ws.write(r, 1, data.get('hearingDate'))
     ws.write(r, 2, data.get('otvetchik-inn'))
     ws.write(r, 3, data.get('istec'))
     ws.write(r, 4, data.get('1'))
     ws.write(r, 5, data.get('1'))
     ws.write(r, 6, data.get('1'))
     ws.write(r, 7, data.get('1'))
-    ws.write(r, 8,  Formula(n + f'("https://kad.arbitr.ru/{uid}";"{case}")'))
+    ws.write(r, 8,  Formula(n + f'("https://kad.arbitr.ru/Card/{uid}";"{case}")'))
     return ws
 
 def to_excel(list_inn):
