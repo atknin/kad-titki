@@ -34,10 +34,7 @@ def doxl(data, ws):
 
 
 def to_excel(list_inn):
-
     wb = Workbook()
-    
-
     for inn in list_inn:
         ws = wb.add_sheet(inn)
         path = f"data/{inn}/"
@@ -45,22 +42,8 @@ def to_excel(list_inn):
         for (dirpath, dirnames, filenames) in walk(path):
             # data 
             # # Opening JSON file
-            # f = open('data.json')
-            
-            # # returns JSON object as 
-            # # a dictionary
-            # data = json.load(f)
-            
-            # # Iterating through the json
-            # # list
-            # for i in data['emp_details']:
-            #     print(i)
-            
-            # # Closing file
-            # f.close()
-
-
-            # doxl(data, ws)
-            print(inn,filenames)
+            with open(path+'{filenames}'):
+                data = json.load(f)
+                doxl(data, ws)
 
     wb.save(f'result.xls')
