@@ -3,6 +3,7 @@
     $('#sug-participants .tag textarea').text('[inn_ogrn]');
     $('#sug-participants .tag textarea').attr('class','');
     $('#caseCourt input').val('[court_name]');
+    $('#caseCourt input').attr('class',''); 
     $('#b-form-submit button').click();
     $('#b-form-submit button').click();
     if($('html:contains("Ошибка 429")').length > 0)  {back_to_python({'error': 'error 429'})};
