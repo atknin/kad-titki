@@ -23,7 +23,7 @@ def doxl(data, ws,r = 1):
     ws.write(r, 4, data.get('1'))
     ws.write(r, 5, data.get('1'))
     ws.write(r, 6, data.get('1'))
-    ws.write(r, 7, 'https://kad.arbitr.ru/'+line.get('uid'))
+    ws.write(r, 7, 'https://kad.arbitr.ru/'+data.get('uid'))
     return ws
 
 def to_excel(list_inn):
