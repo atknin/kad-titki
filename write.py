@@ -1,6 +1,6 @@
 import sys
 import re
-from xlwt import Workbook, easyxf,Formula
+from xlwt import Workbook, easyxf,Formula,Font, XFStyle
 from os import walk
 import json
 
@@ -16,12 +16,24 @@ def write_head(ws):
         'Цена иска',
         'Номер дела'
     ]
+    f = Font()
+    f.height = 20*72
+    f.bold = True
+    f.colour_index = 4
+
+    h_style = XFStyle()
+    h_style.font = f
+
     for i in range(9):
+        ws.write(0, i, heads[i],h_style)
 
-        ws.write(0, i, heads[i])
-
-    for i in range(7):
-        col = ws.col(i)
+    size = [
+        40,15,15,20,
+        15,20,10,10,
+        20,20,20,20
+        ]
+    for i in range(9):
+        col = ws.col(size[i])
         col.width = 256 * 20   
 
     return ws
