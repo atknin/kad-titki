@@ -18,7 +18,7 @@ proxy = {'ip': 'wproxy.site', 'port': '11996', 'login': 'PywyMF', 'password': 'u
 proxy_server = f'http://{proxy["ip"]}:{proxy["port"]}'
 proxy_server_full = f'{proxy["login"]}:{proxy["password"]}@{proxy["ip"]}:{proxy["port"]}'
 proxy_auth = {'login':f'{proxy["login"]}','password':f'{proxy["password"]}'}
-from write import doxl
+from write import to_excel
 ua = UserAgent()
 driver = Driver(uc=True, incognito=True, proxy=proxy_server_full, agent  = ua.random)#,headless=True)
 # меняем IP адрес при старте
@@ -43,5 +43,5 @@ for el in elements:
 
 
 # записать все в файл
-# doxl(data,case_number)
-driver.quite()
+to_excel(elements)
+driver.quit()

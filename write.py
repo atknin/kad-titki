@@ -1,16 +1,16 @@
 import sys
 import re
 from xlwt import Workbook, easyxf
+from os import walk
+import json
 
-
-def doxl(data, comp):
+def doxl(data, ws):
     '''Read raw account number and name strings, separate the data and
        write to an excel spreadsheet.  Properly capitalize the account
        names and mark cells with no account number as 99999 with red fill
        '''
    
-    wb = Workbook()
-    ws = wb.add_sheet(comp)
+    
     ws.write(0, 0, 'Дата иска')
     ws.write(0, 1, 'ИНН Ответчика')
     ws.write(0, 2, 'С кем спор (Истец)')
@@ -32,5 +32,35 @@ def doxl(data, comp):
         ws.write(r, 7, 'https://kad.arbitr.ru/'+line.get('uid'))
         r += 1
 
-    wb.save(f'{comp}.xls')
-    print('date saved:')
+
+def to_excel(list_inn):
+
+    wb = Workbook()
+    
+
+    for inn in list_inn:
+        ws = wb.add_sheet(inn)
+        path = f"data/{inn}/"
+        f = []
+        for (dirpath, dirnames, filenames) in walk(path):
+            data 
+            # # Opening JSON file
+            # f = open('data.json')
+            
+            # # returns JSON object as 
+            # # a dictionary
+            # data = json.load(f)
+            
+            # # Iterating through the json
+            # # list
+            # for i in data['emp_details']:
+            #     print(i)
+            
+            # # Closing file
+            # f.close()
+
+
+            # doxl(data, ws)
+            print(inn,filenames)
+
+    wb.save(f'result.xls')
