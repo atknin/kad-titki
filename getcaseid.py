@@ -32,24 +32,8 @@ def process(driver, case_number,case_id):
     time.sleep(2)
     html = driver.page_source
     data = parse_cases_list(html) 
-
-    if len(data) == 0: 
-        print('ноль рузельтатов')
-        arr = {'row':{'not': 1}}
-        url_update = 'http://app.legaltrack.ru/kad/write_update_short/{}/'.format(case_id)
-        resp = requests.post(url_update, json = arr)
-        raise 1
-
     arr = {'row':data[0]}
-    url_update = 'http://app.legaltrack.ru/kad/write_update_short/{}/'.format(case_id)
-    resp = requests.post(url_update, json = arr)
+    print('resp?',arr)
 
-    print('resp?',resp)
-
-    if resp.status_code == 200: print('data send')
-    else:
-        with open("error.html", "w") as outfile:
-            outfile.write(resp.text)
-        raise 1
-    
+ 
     return driver
