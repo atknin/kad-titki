@@ -40,10 +40,11 @@ def to_excel(list_inn):
         path = f"data/{inn}/"
         f = []
         for (dirpath, dirnames, filenames) in walk(path):
-            # data 
-            # # Opening JSON file
-            with open(path+f'{filenames}'):
-                data = json.load(f)
-                doxl(data, ws)
+            for fname in filenames:
+                # data 
+                # # Opening JSON file
+                with open(path+f'{fname}'):
+                    data = json.load(f)
+                    doxl(data, ws)
 
     wb.save(f'result.xls')
