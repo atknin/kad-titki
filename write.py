@@ -35,6 +35,7 @@ def to_excel(list_inn):
     wb = Workbook()
     ws = {}
     for inn in list_inn:
+
         ws[inn] = wb.add_sheet(inn)
         ws[inn] = write_head(ws[inn])
         path = f"data/{inn}/"
@@ -42,6 +43,7 @@ def to_excel(list_inn):
         count = 0
         for (dirpath, dirnames, filenames) in walk(path):
             for fname in filenames:
+                print(inn,fname)
                 count+=1
                 with open(path+f'{fname}') as f:
                     data = json.loads(f.read())
