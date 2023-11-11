@@ -13,6 +13,11 @@ def write_head(ws):
     ws.write(0, 5, 'Номера телефонов ЛПР')
     ws.write(0, 6, 'Цена иска')
     ws.write(0, 7, 'Номер дела')
+
+    for i in range(7):
+        col = ws.col(i)
+        col.width = 256 * 20   
+
     return ws
 
 def doxl(data, ws,r = 1):
