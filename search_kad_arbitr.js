@@ -1,7 +1,7 @@
 (function(){
    
     $('#sug-participants .tag textarea').text('[inn_ogrn]');
-    $('#sug-participants .tag input:radio').filter('[value=0]').attr('selected','selected');
+    $('#sug-participants input:radio').filter('[value=0]').click().attr('selected','selected').click();
     $('#sug-participants .tag textarea').attr('class','');
     $('#caseCourt input').val('[court_name]');
     $('#caseCourt input').focus();
