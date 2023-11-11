@@ -43,7 +43,7 @@ def to_excel(list_inn):
             for fname in filenames:
                 # data 
                 # # Opening JSON file
-                with open(path+f'{fname}'):
+                with open(path+f'{fname}') as f:
                     data = json.load(f)
                     doxl(data, ws)
 
