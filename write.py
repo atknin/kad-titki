@@ -43,8 +43,6 @@ def to_excel(list_inn):
             for fname in filenames:
                 with open(path+f'{fname}') as f:
                     data = json.loads(f.read())
-                    print(data)
-                    if data is dict:
-                        doxl(data, ws)
+                    doxl(data, ws)
 
     wb.save(f'result.xls')
