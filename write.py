@@ -4,13 +4,7 @@ from xlwt import Workbook, easyxf
 from os import walk
 import json
 
-def doxl(data, ws):
-    '''Read raw account number and name strings, separate the data and
-       write to an excel spreadsheet.  Properly capitalize the account
-       names and mark cells with no account number as 99999 with red fill
-       '''
-   
-    
+def write_head(ws):
     ws.write(0, 0, 'Дата иска')
     ws.write(0, 1, 'ИНН Ответчика')
     ws.write(0, 2, 'С кем спор (Истец)')
@@ -19,30 +13,32 @@ def doxl(data, ws):
     ws.write(0, 5, 'Номера телефонов ЛПР')
     ws.write(0, 6, 'Цена иска')
     ws.write(0, 7, 'Номер дела')
-    
-    r = 1
-    for line in data:
-        ws.write(r, 0, line.get('1'))
-        ws.write(r, 1, line.get('otvetchik-inn'))
-        ws.write(r, 2, line.get('istec'))
-        ws.write(r, 3, line.get('1'))
-        ws.write(r, 4, line.get('1'))
-        ws.write(r, 5, line.get('1'))
-        ws.write(r, 6, line.get('1'))
-        ws.write(r, 7, 'https://kad.arbitr.ru/'+line.get('uid'))
-        r += 1
+    return ws
 
+def doxl(data, ws,r = 1):
+    ws.write(r, 0, data.get('1'))
+    ws.write(r, 1, data.get('otvetchik-inn'))
+    ws.write(r, 2, data.get('istec'))
+    ws.write(r, 3, data.get('1'))
+    ws.write(r, 4, data.get('1'))
+    ws.write(r, 5, data.get('1'))
+    ws.write(r, 6, data.get('1'))
+    ws.write(r, 7, 'https://kad.arbitr.ru/'+line.get('uid'))
+    return ws
 
 def to_excel(list_inn):
     wb = Workbook()
     for inn in list_inn:
         ws = wb.add_sheet(inn)
+        ws = write_head(ws)
         path = f"data/{inn}/"
         f = []
+        count = 0
         for (dirpath, dirnames, filenames) in walk(path):
             for fname in filenames:
+                count+=1
                 with open(path+f'{fname}') as f:
                     data = json.loads(f.read())
-                    doxl(data, ws)
+                    ws = doxl(data, ws, r = count)
 
     wb.save(f'result.xls')
