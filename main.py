@@ -22,7 +22,7 @@ proxy_server_full = f'{proxy["login"]}:{proxy["password"]}@{proxy["ip"]}:{proxy[
 proxy_auth = {'login':f'{proxy["login"]}','password':f'{proxy["password"]}'}
 
 ua = UserAgent()
-driver = Driver(uc=True, incognito=True, proxy=proxy_server_full, agent  = ua.random,headless=True)
+driver = Driver(uc=True, incognito=True, proxy=proxy_server_full, agent  = ua.random)#,headless=True)
 
 while True:
     try:
