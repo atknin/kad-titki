@@ -2,6 +2,7 @@
    
     $('#sug-participants .tag textarea').text('[inn_ogrn]');
     $('#sug-participants .tag textarea').attr('class','');
+    $('#sug-participants .tag input:radio').filter('[value=Истец]').attr('selected','selected') 
     $('#caseCourt input').val('[court_name]');
     $('#caseCourt input').focus();
     $('#b-form-submit button').click();
