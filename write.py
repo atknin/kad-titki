@@ -17,9 +17,9 @@ def write_head(ws):
         'Номер дела'
     ]
     f = Font()
-    f.height = 20*72
+    # f.height = 20*72
     f.bold = True
-    f.colour_index = 4
+    # f.colour_index = 4
 
     h_style = XFStyle()
     h_style.font = f
@@ -33,8 +33,8 @@ def write_head(ws):
         20,20,20,20
         ]
     for i in range(9):
-        col = ws.col(size[i])
-        col.width = 256 * 20   
+        col = ws.col(i)
+        col.width = 256 * size[i]   
 
     return ws
 
