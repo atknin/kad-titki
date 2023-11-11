@@ -32,8 +32,7 @@ def process(driver, case_number,case_id):
     time.sleep(2)
     html = driver.page_source
     data = parse_cases_list(html) 
-    arr = {'row':data[0]}
-    print('resp?',arr)
+    print([i for i in data])
 
  
     return driver

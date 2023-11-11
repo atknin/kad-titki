@@ -1,8 +1,8 @@
 (function(){
     
     
-    $('#sug-cases input').val('[case_number]');
-    $('#sug-cases input').attr('class','');
+    $('#sug-participants input').val('[case_number]');
+    $('#sug-participants input').attr('class','');
     $('#b-form-submit button').click();
     $('#b-form-submit button').click();
     if($('html:contains("Ошибка 429")').length > 0)  {back_to_python({'error': 'error 429'})};
