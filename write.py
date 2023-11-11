@@ -43,7 +43,7 @@ def to_excel(list_inn):
         path = f"data/{inn}/"
         f = []
         for (dirpath, dirnames, filenames) in walk(path):
-            data 
+            # data 
             # # Opening JSON file
             # f = open('data.json')
             
