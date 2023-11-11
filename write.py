@@ -42,7 +42,7 @@ def to_excel(list_inn):
         for (dirpath, dirnames, filenames) in walk(path):
             # data 
             # # Opening JSON file
-            with open(path+'{filenames}'):
+            with open(path+f'{filenames}'):
                 data = json.load(f)
                 doxl(data, ws)
 
