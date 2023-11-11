@@ -10,7 +10,7 @@ def doxl(data, comp):
        '''
    
     wb = Workbook()
-    ws = wb.add_sheet('Наименование Ответчика')
+    ws = wb.add_sheet(comp)
     ws.write(0, 0, 'Дата иска')
     ws.write(0, 1, 'ИНН Ответчика')
     ws.write(0, 2, 'С кем спор (Истец)')
