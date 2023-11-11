@@ -25,11 +25,11 @@ driver = Driver(uc=True, incognito=True, proxy=proxy_server_full, agent  = ua.ra
 requests.get('https://changeip.mobileproxy.space/?proxy_key=c9d64935f5f935255181a3ee425e83bd')
 
 
-comp_input = open('input.txt').readlines()
+comp_input = [i.replace('\n','').strip() for i in open('input.txt').readlines()]
 
 
 # for el in comp_input:
-#     el = el.replace('\n','').strip()
+#     el = el
 #     print('Начинаем', el)
 #     case_id = 1
 #     print(sys.executable, BASE_DIR+"/getcaseid.py",el,case_id)
