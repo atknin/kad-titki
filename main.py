@@ -28,22 +28,20 @@ requests.get('https://changeip.mobileproxy.space/?proxy_key=c9d64935f5f935255181
 comp_input = [i.replace('\n','').strip() for i in open('input.txt').readlines()]
 
 
-# for el in comp_input:
-#     el = el
-#     print('Начинаем', el)
-#     case_id = 1
-#     print(sys.executable, BASE_DIR+"/getcaseid.py",el,case_id)
-#     try: 
-#         process(driver, el,case_id)
-#         time.sleep(5)
-#     except Exception as e:
-#         raise e
-#         print('ошибка')
-#         print(f'перезагружаем браузер')
-#         driver.quit()
-#         time.sleep(2)
-#         ua = UserAgent()
-#         driver = Driver(uc=True, incognito=True, proxy=proxy_server_full, agent  = ua.random)
+for el in comp_input:
+    print('Начинаем', el)
+    case_id = 1
+    print(sys.executable, BASE_DIR+"/getcaseid.py",el,case_id)
+    try: 
+        process(driver, el,case_id)
+        time.sleep(5)
+    except Exception as e:
+        print('ошибка')
+        print(f'перезагружаем браузер')
+        driver.quit()
+        time.sleep(2)
+        ua = UserAgent()
+        driver = Driver(uc=True, incognito=True, proxy=proxy_server_full, agent  = ua.random)
 
 
 # записать все в файл

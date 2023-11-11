@@ -42,11 +42,10 @@ def to_excel(list_inn):
         f = []
         count = 0
         for (dirpath, dirnames, filenames) in walk(path):
-            print(dirpath, dirnames, filenames)
-            # for fname in filenames:
-            #     count+=1
-            #     with open(path+f'{fname}') as f:
-            #         data = json.loads(f.read())
-            #         ws[inn] = doxl(data, ws[inn], r = count)
+            for fname in filenames:
+                count+=1
+                with open(path+f'{fname}') as f:
+                    data = json.loads(f.read())
+                    ws[inn] = doxl(data, ws[inn], r = count)
 
     wb.save(f'result.xls')
