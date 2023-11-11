@@ -33,9 +33,10 @@ def doxl(data, ws,r = 1):
 
 def to_excel(list_inn):
     wb = Workbook()
+    ws = {}
     for inn in list_inn:
-        ws = wb.add_sheet(inn)
-        ws = write_head(ws)
+        ws[inn] = wb.add_sheet(inn)
+        ws[inn] = write_head(ws[inn])
         path = f"data/{inn}/"
         f = []
         count = 0
@@ -44,6 +45,6 @@ def to_excel(list_inn):
                 count+=1
                 with open(path+f'{fname}') as f:
                     data = json.loads(f.read())
-                    doxl(data, ws, r = count)
+                    ws[inn] = doxl(data, ws[inn], r = count)
 
     wb.save(f'result.xls')
