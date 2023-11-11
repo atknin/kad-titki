@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def runjs(driver,inn_ogrn):
-    JS_CODE = open(BASE_DIR+'/search_kad_arbitr.js').read().replace('[inn_ogrn]',inn_ogrn).replace('[court_name]','АС города Москвы')
+    JS_CODE = open(BASE_DIR+'/search_kad_arbitr.js').read().replace('[inn_ogrn]',inn_ogrn.strip()).replace('[court_name]','АС города Москвы')
     driver.execute_script(JS_CODE)
 
 def process(driver, inn_ogrn,case_id):
