@@ -35,7 +35,8 @@ for el in comp_input:
     try: 
         process(driver, el,case_id)
         time.sleep(5)
-    except:
+    except Exception as e:
+        raise e
         print('ошибка')
         print(f'перезагружаем браузер')
         driver.quit()
