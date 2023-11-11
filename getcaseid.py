@@ -8,7 +8,6 @@ import os
 import requests
 from bs4 import BeautifulSoup
 import random 
-from cefpython3 import cefpython as cef
 from fake_useragent import UserAgent
 
 import time
