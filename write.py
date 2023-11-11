@@ -45,6 +45,7 @@ def to_excel(list_inn):
                 # # Opening JSON file
                 with open(path+f'{fname}') as f:
                     data = json.load(f)
-                    doxl(data, ws)
+                    if data is dict:
+                        doxl(data, ws)
 
     wb.save(f'result.xls')
