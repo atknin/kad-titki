@@ -29,6 +29,7 @@ comp_input = open('input.txt').readlines()
 
 
 for el in comp_input:
+    el = el.replace('\n','').strip()
     print('Начинаем', el)
     case_id = 1
     print(sys.executable, BASE_DIR+"/getcaseid.py",el,case_id)
