@@ -25,7 +25,7 @@ driver = Driver(uc=True, incognito=True, proxy=proxy_server_full, agent  = ua.ra
 requests.get('https://changeip.mobileproxy.space/?proxy_key=c9d64935f5f935255181a3ee425e83bd')
 
 
-elements = ['каркаде']
+elements = ['3905019765', '7709413138']
 
 for el in elements:
     case_id = 1
@@ -45,3 +45,4 @@ for el in elements:
 
     
 
+driver.quite()

@@ -9,7 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 import random 
 from fake_useragent import UserAgent
-
+from write import doxl
 import time
 from functions import parse_cases_list
 import random
@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def runjs(driver,case_number):
-    JS_CODE = open(BASE_DIR+'/search_kad_arbitr.js').read().replace('[case_number]',case_number)
+    JS_CODE = open(BASE_DIR+'/search_kad_arbitr.js').read().replace('[inn_ogrn]',case_number)
     driver.execute_script(JS_CODE)
 
 def process(driver, case_number,case_id):
@@ -32,7 +32,8 @@ def process(driver, case_number,case_id):
     time.sleep(2)
     html = driver.page_source
     data = parse_cases_list(html) 
+    
     print([i for i in data])
-
+    doxl(data,case_number)
  
     return driver
