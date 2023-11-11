@@ -39,14 +39,15 @@ def to_excel(list_inn):
 
         ws[inn] = wb.add_sheet(inn)
         ws[inn] = write_head(ws[inn])
-        path = f"data/{inn}/"
+        path = f"data/"
         f = []
         count = 0
         for (dirpath, dirnames, filenames) in walk(path):
-            for fname in filenames:
-                count+=1
-                with open(path+f'{fname}') as f:
-                    data = json.loads(f.read())
-                    ws[inn] = doxl(data, ws[inn], r = count)
+            print(dirpath, dirnames, filenames)
+            # for fname in filenames:
+            #     count+=1
+            #     with open(path+f'{fname}') as f:
+            #         data = json.loads(f.read())
+            #         ws[inn] = doxl(data, ws[inn], r = count)
 
     wb.save(f'result.xls')
