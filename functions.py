@@ -159,7 +159,6 @@ def da_data(data):
     }
     dadata = requests.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party',data=data, headers = headers).json()
     if 'suggestions' in dadata: 
-        suggest = dadata['suggestions'][0]
-        data['dadata-otvetchik'] = dadata['suggestions'][0]
-
+        if len(dadata['suggestions'])!=0:
+            data['dadata-otvetchik'] = dadata['suggestions'][0]
     return data
