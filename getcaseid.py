@@ -65,5 +65,5 @@ def process(driver, inn_ogrn,case_id):
                 with open(path_f, "w") as outfile:
                     outfile.write(json_object)
             else:
-                print('уже было скачано')
+                print('уже было скачано',body.get('otvetchik-inn'))
     return driver
