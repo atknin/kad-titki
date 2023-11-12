@@ -59,11 +59,11 @@ def process(driver, inn_ogrn,case_id):
         # добавляем дадату        
         with open(path_f) as f:
             body = json.loads(f.read())
-            if  body.get('dadata-otvetchik', True) and (body.get('otvetchik-inn') is not None):
+            if  not body.get('dadata-otvetchik', False) and (body.get('otvetchik-inn') is not None):
                 print('скачиваем данные ответчика', body.get('otvetchik-inn'))
                 json_object = json.dumps(da_data(body), indent=4)
                 with open(path_f, "w") as outfile:
                     outfile.write(json_object)
             else:
-                print('уже было скачано',body.get('otvetchik-inn'))
+                print('пропускаем',body.get('otvetchik-inn'))
     return driver
