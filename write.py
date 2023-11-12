@@ -42,7 +42,11 @@ def doxl(data, ws,r = 1):
     uid = data.get('uid')
     case = data.get('case')
     n = "HYPERLINK"
-    otvetchic_gendir = data.get('dadata-otvetchik',{}).get('data',{}).get('management',{}).get('name','-') if data.get('dadata-otvetchik') else '-'
+    try:
+        otvetchic_gendir = data.get('dadata-otvetchik',{}).get('data',{}).get('management',{}).get('name','-') 
+    except:
+        otvetchic_gendir = '-'
+        print(data.get('dadata-otvetchik',{}))
     ws.write(r, 0, data.get('otvetchik'))
     ws.write(r, 1, data.get('hearingDate'))
     ws.write(r, 2, data.get('otvetchik-inn'))
