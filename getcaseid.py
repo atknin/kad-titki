@@ -15,6 +15,8 @@ from functions import parse_cases_list,da_data
 import random
 import os
 
+from pathlib import Path
+
 # import subprocess
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -49,7 +51,8 @@ def process(driver, inn_ogrn,case_id):
     # пройтись по всем делам и сохранить информацию
     for res in data:
         path_f = f'{path}/{res.get("uid")}.json'
-        if not os.path.isfile(path):
+        my_file = Path(path_f)
+        if not my_file.exists(): 
             print('создаем файл дела', res['case'])
             json_object = json.dumps(res, indent=4)
             # Writing to sample.json
