@@ -26,6 +26,7 @@ def runjs(driver,inn_ogrn):
     driver.execute_script(JS_CODE)
 
 def process(driver, inn_ogrn,case_id):
+    print('*********')
     print('скачиваем дела по компании', inn_ogrn)
     driver.get("https://kad.arbitr.ru")
     time.sleep(3)
