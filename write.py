@@ -69,5 +69,5 @@ def to_excel(list_inn):
                 with open(path+f'{fname}') as f:
                     data = json.loads(f.read())
                     ws[inn] = doxl(data, ws[inn], r = count)
-
+                    
     wb.save(f'result.xls')

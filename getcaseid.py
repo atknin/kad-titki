@@ -11,10 +11,9 @@ import random
 from fake_useragent import UserAgent
 
 import time
-from functions import parse_cases_list
+from functions import parse_cases_list,da_data
 import random
 import os
-
 
 # import subprocess
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -49,8 +48,18 @@ def process(driver, inn_ogrn,case_id):
     for res in data:
         path_f = f'{path}/{res.get("uid")}.json'
         if not os.path.isfile(path):
+            
             json_object = json.dumps(res, indent=4)
             # Writing to sample.json
             with open(path_f, "w") as outfile:
                 outfile.write(json_object)
+        
+        # добавляем дадату        
+        with open(path_f) as f:
+            data = json.loads(f.read())
+            if not ('dadata-otvetchik' in data) and len(data.get('otvetchik-inn'))>6:
+                res = da_data(res)
+                json_object = json.dumps(res, indent=4)
+                with open(path_f, "w") as outfile:
+                    outfile.write(json_object)
     return driver

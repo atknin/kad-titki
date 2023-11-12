@@ -148,3 +148,18 @@ def get_status_code_response(response):
             response_error = 'Доступ к сервису ограничен!'
     return status_code, success, response_error
    
+
+
+def da_data(data):
+    data = json.dumps({ "query": str(data['otvetchik-inn']) })
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": "Token 731d578f91142b6ff8e3b5659badb868b78dafae"
+    }
+    dadata = requests.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party',data=data, headers = headers).json()
+    if 'suggestions' in dadata: 
+        suggest = dadata['suggestions'][0]
+        data['dadata-otvetchik'] = dadata['suggestions'][0]
+
+    return data
