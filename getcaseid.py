@@ -50,18 +50,20 @@ def process(driver, inn_ogrn,case_id):
     for res in data:
         path_f = f'{path}/{res.get("uid")}.json'
         if not os.path.isfile(path):
+            print('создаем файл дела', res['case'])
             json_object = json.dumps(res, indent=4)
             # Writing to sample.json
             with open(path_f, "w") as outfile:
                 outfile.write(json_object)
         else:
             print('пропускаем', body.get('otvetchik-inn'))
+
         # добавляем дадату        
         with open(path_f) as f:
             body = json.loads(f.read())
             has_dadata = 'dadata-otvetchik' in body
             has_inn_otv = body.get('otvetchik-inn') is not None
-            
+
             if  not has_dadata and has_inn_otv:
                 print('скачиваем данные ответчика', body.get('otvetchik-inn'))
                 json_object = json.dumps(da_data(body), indent=4)
