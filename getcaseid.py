@@ -56,7 +56,7 @@ def process(driver, inn_ogrn,case_id):
         # добавляем дадату        
         with open(path_f) as f:
             data = json.loads(f.read())
-            if not ('dadata-otvetchik' in data) and len(data.get('otvetchik-inn'))>6:
+            if not ('dadata-otvetchik' in data) and data.get('otvetchik-inn') is not None:
                 print('download DADATA')
                 json_object = json.dumps(da_data(data), indent=4)
                 with open(path_f, "w") as outfile:
