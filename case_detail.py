@@ -12,7 +12,7 @@ dir_name = None
 
 def write_output(html, cookies,driver,uid):
     dir_name = '/data/' + uid
-    print('uid write_output',uid)
+    # print('uid write_output',uid)
     dir_path = BASE_DIR + dir_name
     if not os.path.exists(dir_path): os.mkdir(dir_path)
     if not os.path.exists(dir_path + '/instances'): os.mkdir(dir_path + '/instances')

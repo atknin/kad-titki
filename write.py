@@ -5,6 +5,7 @@ from os import walk
 import json
 
 def write_head(ws):
+    print('добавляем загаловки для страницы')
     heads = [
         'Ответчик', 
         'Дата иска',
@@ -46,7 +47,7 @@ def doxl(data, ws,r = 1):
         otvetchic_gendir = data.get('dadata-otvetchik',{}).get('data',{}).get('management',{}).get('name','-') 
     except:
         otvetchic_gendir = '-'
-        print(data.get('dadata-otvetchik',{}))
+        # print(data.get('dadata-otvetchik',{}))
     ws.write(r, 0, data.get('otvetchik'))
     ws.write(r, 1, data.get('hearingDate'))
     ws.write(r, 2, data.get('otvetchik-inn'))
@@ -59,6 +60,7 @@ def doxl(data, ws,r = 1):
     return ws
 
 def to_excel(list_inn):
+    print('переписываем EXCEL')
     wb = Workbook()
     ws = {}
     for inn in list_inn:
@@ -74,5 +76,7 @@ def to_excel(list_inn):
                 with open(path+f'{fname}') as f:
                     data = json.loads(f.read())
                     ws[inn] = doxl(data, ws[inn], r = count)
-                    
-    wb.save(f'result.xls')
+    try:
+        wb.save(f'result.xls')
+    except:
+        print('ОШИБКА, не смогли сохранить EXCEL, не забывайте закрывать перед перезаписью')

@@ -21,11 +21,12 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def runjs(driver,inn_ogrn):
+    print('симулируем движения на страницы')
     JS_CODE = open(BASE_DIR+'/search_kad_arbitr.js').read().replace('[inn_ogrn]',inn_ogrn).replace('[court_name]','АС города Москвы')
     driver.execute_script(JS_CODE)
 
 def process(driver, inn_ogrn,case_id):
-    
+    print('скачиваем дела по компании', inn_ogrn)
     driver.get("https://kad.arbitr.ru")
     time.sleep(3)
     runjs(driver,inn_ogrn)
@@ -57,7 +58,7 @@ def process(driver, inn_ogrn,case_id):
         with open(path_f) as f:
             body = json.loads(f.read())
             if ('dadata-otvetchik' not in body) and (body.get('otvetchik-inn') is not None):
-                print('download DADATA')
+                print('скачиваем данные ответчика', body.get('otvetchik-inn'))
                 json_object = json.dumps(da_data(body), indent=4)
                 with open(path_f, "w") as outfile:
                     outfile.write(json_object)
