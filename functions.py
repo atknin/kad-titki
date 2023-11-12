@@ -79,7 +79,7 @@ def parse_cases_list(content):
         element['otvetchik'] =  otvetchik.find('strong').text if otvetchik else None
         element['otvetchik-details'] =  otvetchik.text.strip().replace('\t','').replace('\r','').replace('\n',' ').replace('  ',' ') if otvetchik else None
         div_inn = otvetchik.find('div') if otvetchik else None
-        element['otvetchik-inn'] = div_inn.text.replace('\t','').replace('\r','').replace('\n',' ').strip().split(':')[1] if div_inn else None
+        element['otvetchik-inn'] = div_inn.text.replace('\t','').replace('\r','').replace('  ','').replace('\n','').strip().split(':')[1] if div_inn else None
         data.append(element)
     return data
 def parse_instances(content,card_link):
