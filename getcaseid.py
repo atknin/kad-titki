@@ -48,7 +48,6 @@ def process(driver, inn_ogrn,case_id):
     for res in data:
         path_f = f'{path}/{res.get("uid")}.json'
         if not os.path.isfile(path):
-            
             json_object = json.dumps(res, indent=4)
             # Writing to sample.json
             with open(path_f, "w") as outfile:
@@ -58,8 +57,8 @@ def process(driver, inn_ogrn,case_id):
         with open(path_f) as f:
             data = json.loads(f.read())
             if not ('dadata-otvetchik' in data) and len(data.get('otvetchik-inn'))>6:
-                res = da_data(res)
-                json_object = json.dumps(res, indent=4)
+                print('download DADATA')
+                json_object = json.dumps(da_data(data), indent=4)
                 with open(path_f, "w") as outfile:
                     outfile.write(json_object)
     return driver
