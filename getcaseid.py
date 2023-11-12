@@ -53,7 +53,6 @@ def process(driver, inn_ogrn,case_id):
         path_f = f'{path}/{res.get("uid")}.json'
         my_file = Path(path_f)
         if not my_file.exists(): 
-            print('создаем файл дела', res['case'])
             json_object = json.dumps(res, indent=4)
             # Writing to sample.json
             with open(path_f, "w") as outfile:
@@ -68,7 +67,6 @@ def process(driver, inn_ogrn,case_id):
             has_inn_otv = body.get('otvetchik-inn') is not None
 
             if  not has_dadata and has_inn_otv:
-                print('скачиваем данные ответчика', body.get('otvetchik-inn'))
                 json_object = json.dumps(da_data(body), indent=4)
                 with open(path_f, "w") as outfile:
                     outfile.write(json_object)
