@@ -47,7 +47,7 @@ def doxl(data, ws,r = 1):
     ws.write(r, 2, data.get('otvetchik-inn'))
     ws.write(r, 3, data.get('istec'))
     ws.write(r, 4, data.get('1'))
-    ws.write(r, 5, data.get('1'))
+    ws.write(r, 5, data.get('dadata-otvetchik',{}).get('management',{}).get('name','-'))
     ws.write(r, 6, data.get('1'))
     ws.write(r, 7, data.get('1'))
     ws.write(r, 8,  Formula(n + f'("https://kad.arbitr.ru/Card/{uid}";"{case}")'))
