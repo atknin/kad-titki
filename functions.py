@@ -151,13 +151,12 @@ def get_status_code_response(response):
 
 
 def da_data(data):
-    data = json.dumps({ "query": str(data['otvetchik-inn']) })
     headers = {
         "Content-Type": "application/json",
         "Accept": "application/json",
         "Authorization": "Token 731d578f91142b6ff8e3b5659badb868b78dafae"
     }
-    dadata = requests.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party',data=data, headers = headers).json()
+    dadata = requests.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party',data=json.dumps({ "query": str(data['otvetchik-inn']) }), headers = headers).json()
     if 'suggestions' in dadata: 
         if len(dadata['suggestions'])!=0:
             data['dadata-otvetchik'] = dadata['suggestions'][0]
