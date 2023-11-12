@@ -36,6 +36,7 @@ for el in comp_input:
     except Exception as e:
         print('Блять, ошибка')
         print(f'перезагружаем браузер - это плохо, скорее всего ничего не получится у нас')
+        raise e
         driver.quit()
         time.sleep(2)
         ua = UserAgent()
