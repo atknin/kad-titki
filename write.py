@@ -78,5 +78,6 @@ def to_excel(list_inn):
                     ws[inn] = doxl(data, ws[inn], r = count)
     try:
         wb.save(f'result.xls')
+        print('все готово)')
     except:
         print('ОШИБКА, не смогли сохранить EXCEL, не забывайте закрывать перед перезаписью')
