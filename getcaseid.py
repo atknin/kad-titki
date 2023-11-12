@@ -58,7 +58,8 @@ def process(driver, inn_ogrn,case_id):
             with open(path_f, "w") as outfile:
                 outfile.write(json_object)
         else:
-            print('пропускаем', res.get('case'))
+            pass
+            # print('пропускаем', res.get('case'))
 
         # добавляем дадату        
         with open(path_f) as f:
@@ -71,5 +72,6 @@ def process(driver, inn_ogrn,case_id):
                 with open(path_f, "w") as outfile:
                     outfile.write(json_object)
             else:
-                print('пропускаем',body.get('otvetchik-inn'))
+                pass
+                # print('пропускаем',body.get('otvetchik-inn'))
     return driver
