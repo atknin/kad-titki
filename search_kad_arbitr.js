@@ -4,7 +4,6 @@
     $('#sug-participants input:radio').filter('[value=0]').click().attr('selected','selected').click();
     $('#sug-participants .tag textarea').attr('class','');
     $('#caseCourt input').val('[court_name]');
-    $('#sug-participants input:radio').filter('[value=0]').click().attr('selected','selected').click();
     $('#caseCourt input').focus();
     $('#b-form-submit button').click();
     $('#b-form-submit button').click();
