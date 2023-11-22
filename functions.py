@@ -16,7 +16,6 @@ def proxy(dictionary = False):
     proxy = {'ip': 'wproxy.site', 'port': '11996', 'login': 'PywyMF', 'password': 'uKgYE8eH3am2', 'source': 2, 'added_at': '2019-12-15T22:29:01.747Z', 'last_attempt_at': '2020-01-10T09:29:04.635Z', 'is_valid': True, 'valid_index': 0}
     proxy_server_full = f'{proxy["login"]}:{proxy["password"]}@{proxy["ip"]}:{proxy["port"]}'
     if dictionary:
-        print(f'http://{proxy_server_full}')
         return  { 
               "http"  : f'http://{proxy_server_full}', 
               "https" :f'https://{proxy_server_full}', 
