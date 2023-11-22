@@ -11,16 +11,14 @@ import json
 import time
 import os,sys
 import subprocess
+from functions import proxy
 from getcaseid import process
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 from seleniumbase import Driver
-proxy = {'ip': 'wproxy.site', 'port': '11996', 'login': 'PywyMF', 'password': 'uKgYE8eH3am2', 'source': 2, 'added_at': '2019-12-15T22:29:01.747Z', 'last_attempt_at': '2020-01-10T09:29:04.635Z', 'is_valid': True, 'valid_index': 0}
-proxy_server = f'http://{proxy["ip"]}:{proxy["port"]}'
-proxy_server_full = f'{proxy["login"]}:{proxy["password"]}@{proxy["ip"]}:{proxy["port"]}'
-proxy_auth = {'login':f'{proxy["login"]}','password':f'{proxy["password"]}'}
+
 from write import to_excel
 ua = UserAgent()
-driver = Driver(uc=True, incognito=True, proxy=proxy_server_full, agent  = ua.random,headless=True)
+driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=True)
 # меняем IP адрес при старте
 requests.get('https://changeip.mobileproxy.space/?proxy_key=c9d64935f5f935255181a3ee425e83bd')
 

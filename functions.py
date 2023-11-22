@@ -13,6 +13,13 @@ data_path = os.path.join(BASE_DIR, 'data')
 if not os.path.isdir(data_path):
     os.mkdir(data_path)
 
+def proxy():
+    proxy = {'ip': 'wproxy.site', 'port': '11996', 'login': 'PywyMF', 'password': 'uKgYE8eH3am2', 'source': 2, 'added_at': '2019-12-15T22:29:01.747Z', 'last_attempt_at': '2020-01-10T09:29:04.635Z', 'is_valid': True, 'valid_index': 0}
+    proxy_server = f'http://{proxy["ip"]}:{proxy["port"]}'
+    proxy_server_full = f'{proxy["login"]}:{proxy["password"]}@{proxy["ip"]}:{proxy["port"]}'
+    proxy_auth = {'login':f'{proxy["login"]}','password':f'{proxy["password"]}'}
+    return proxy_server_full
+
 def stripped_text(tag):
     return getattr(tag, 'text').strip()
 
@@ -163,6 +170,7 @@ def listor_f(data, myproxy = None):
             "sec-fetch-mode": "navigate",
         }
     inn = str(data['otvetchik-inn'])
+    print(f'\rlistorg {inn}', end='', flush=True)
     main_page = requests.get("https://www.list-org.com/search?type=inn&val={}".format(inn),timeout=30, headers = headers_list_org ,proxies=myproxy)
     content1 = main_page.content.decode("utf-8")
     soup = BeautifulSoup(content1, "html.parser")

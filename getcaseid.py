@@ -11,7 +11,7 @@ import random
 from fake_useragent import UserAgent
 
 import time
-from functions import parse_cases_list,da_data,listor_f
+from functions import parse_cases_list,da_data,listor_f, proxy
 import random
 import os
 
@@ -71,7 +71,7 @@ def process(driver, inn_ogrn,case_id):
             
             # записываем DADATA
             if  not has_listorg and has_inn_otv:
-                json_object_listorg = json.dumps(listor_f(body), indent=4)
+                json_object_listorg = json.dumps(listor_f(body, proxy =proxy() ), indent=4)
                 with open(path_f, "w") as outfile:
                     outfile.write(json_object_listorg)
 
