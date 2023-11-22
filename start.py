@@ -18,7 +18,7 @@ from seleniumbase import Driver
 
 from write import to_excel
 ua = UserAgent()
-driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=False)
+driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=True)
 # меняем IP адрес при старте
 requests.get('https://changeip.mobileproxy.space/?proxy_key=c9d64935f5f935255181a3ee425e83bd')
 
@@ -30,7 +30,10 @@ for el in comp_input:
     case_id = 1
     try: 
         process(driver, el,case_id)
-        driver.refresh()
+        driver.quit()
+        time.sleep(2)
+        ua = UserAgent()
+        driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=True)
         time.sleep(5)
     except Exception as e:
         print('Блять, ошибка')
