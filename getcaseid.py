@@ -76,7 +76,7 @@ def process(driver, inn_ogrn,case_id):
                     with open(path_f, "w") as outfile:
                         outfile.write(json_object_listorg)
                 except Exception as e:
-                    print('не смогли получить данные')
+                    print('– не смогли получить данные')
 
 
             if  not has_dadata and has_inn_otv:
