@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def runjs(driver,inn_ogrn):
-    print('симулируем движения на страницы')
+    print('симулируем движения на странице')
     JS_CODE = open(BASE_DIR+'/search_kad_arbitr.js').read().replace('[inn_ogrn]',inn_ogrn).replace('[court_name]','АС города Москвы')
     driver.execute_script(JS_CODE)
 

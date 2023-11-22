@@ -191,9 +191,8 @@ def listor_f(data, myproxy = None):
     content2 = data_page.content.decode("utf-8")
     if 'хотим убедиться, что вы не робот' in content2:
         capcha = True
-        print('[капча]Ошибка получения страницы' )
+        print('[капча]Ошибка получения странице' )
         return data
-        # raise '[капча]Ошибка получения страницы'
 
     soup_data_page = BeautifulSoup(content2, "html.parser")
     ps = soup_data_page.findAll('p')

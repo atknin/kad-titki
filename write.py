@@ -5,7 +5,7 @@ from os import walk
 import json
 
 def write_head(ws):
-    print('добавляем загаловки для страницы')
+    print('добавляем загаловки для странице')
     heads = [
         'Ответчик', 
         'Дата иска',
