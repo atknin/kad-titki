@@ -30,7 +30,7 @@ for el in comp_input:
     case_id = 1
     try: 
         process(driver, el,case_id)
-        driver.reload()
+        driver.refresh()
         time.sleep(5)
     except Exception as e:
         print('Блять, ошибка')
