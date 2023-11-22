@@ -4,6 +4,7 @@ import json
 from bs4 import BeautifulSoup, element
 from datetime import datetime
 import itertools
+from fake_useragent import UserAgent
 stat_base_url = 'http://app.legaltrack.ru'
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -160,10 +161,11 @@ def get_status_code_response(response):
 
 def listor_f(data, myproxy = None):
     myproxy = None
+    ua = UserAgent()
     headers_list_org = {
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
             "Pragma": "no-cache",
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15",
+            "User-Agent":  ua.random,
             "upgrade-insecure-requests": "1",
             "sec-fetch-user": "?1",
             "sec-fetch-site": "none",
@@ -174,7 +176,7 @@ def listor_f(data, myproxy = None):
         }
     inn = str(data['otvetchik-inn'])
     print(f'\rlistorg {inn}', end='', flush=True)
-    main_page = requests.get("https://www.list-org.com/search?type=inn&val={}".format(inn),timeout=30, headers = headers_list_org ,proxies=myproxy)
+    main_page = requests.get("https://www.list-org.com/search?type=inn&val={}".format(inn),timeout=10, headers = headers_list_org ,proxies=myproxy)
     content1 = main_page.content.decode("utf-8")
     soup = BeautifulSoup(content1, "html.parser")
     table_data = soup.find("div", {"class": "org_list"})
