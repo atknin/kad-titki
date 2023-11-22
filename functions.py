@@ -149,6 +149,60 @@ def get_status_code_response(response):
     return status_code, success, response_error
    
 
+def listor_f(data, myproxy = None):
+    headers_list_org = {
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+            "Pragma": "no-cache",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15",
+            "upgrade-insecure-requests": "1",
+            "sec-fetch-user": "?1",
+            "sec-fetch-site": "none",
+            "sec-fetch-dest": "document",
+            "accept-language": "en-US,en;q=0.9,ru;q=0.8",
+            "accept-encoding": "gzip, deflate, br",
+            "sec-fetch-mode": "navigate",
+        }
+    inn = str(data['otvetchik-inn'])
+    main_page = requests.get("https://www.list-org.com/search?type=inn&val={}".format(inn),timeout=30, headers = headers_list_org ,proxies=myproxy)
+    content1 = main_page.content.decode("utf-8")
+    soup = BeautifulSoup(content1, "html.parser")
+    table_data = soup.find("div", {"class": "org_list"})
+    if not table_data: 
+        return data
+    else:
+        orgs = table_data.findAll("p")
+        if len(orgs)<=0: 
+            print(inn, 'нет результата', "https://www.list-org.com/search?type=ogrn&val={}".format(inn))
+            return data
+
+    link_first = orgs[0].find("a")["href"]
+    data_page = requests.get("https://www.list-org.com{}".format(link_first),headers=headers_list_org,proxies=myproxy)
+    content2 = data_page.content.decode("utf-8")
+    if 'хотим убедиться, что вы не робот' in content2:
+        capcha = True
+        print('[капча]Ошибка получения страницы' )
+        return data
+        # raise '[капча]Ошибка получения страницы'
+
+    soup_data_page = BeautifulSoup(content2, "html.parser")
+    ps = soup_data_page.findAll('p')
+    json_data = {}
+    for p in ps:
+        if p.find('i'):
+            key = p.find('i').text
+            json_data[key.replace(':','')] = p.text.replace(key,'')
+
+    founders =  soup_data_page.find('div',{'id':'founders'})
+    json_data['founder'] = {
+        'inn':founders.findAll('tr')[1].findAll('td')[1].text,
+        'name':founders.findAll('tr')[1].findAll('td')[0].text
+        }
+    data['listorg'] = json_data
+    return data
+        
+
+
+
 
 def da_data(data):
     headers = {

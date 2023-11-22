@@ -11,7 +11,7 @@ import random
 from fake_useragent import UserAgent
 
 import time
-from functions import parse_cases_list,da_data
+from functions import parse_cases_list,da_data,listor_f
 import random
 import os
 
@@ -65,7 +65,16 @@ def process(driver, inn_ogrn,case_id):
         with open(path_f) as f:
             body = json.loads(f.read())
             has_dadata = 'dadata-otvetchik' in body
+            has_listorg = 'listorg' in body
+
             has_inn_otv = body.get('otvetchik-inn') is not None
+            
+            # записываем DADATA
+            if  not has_listorg and has_inn_otv:
+                json_object_listorg = json.dumps(listor_f(body), indent=4)
+                with open(path_f, "w") as outfile:
+                    outfile.write(json_object_listorg)
+
 
             if  not has_dadata and has_inn_otv:
                 json_object = json.dumps(da_data(body), indent=4)
