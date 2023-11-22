@@ -71,7 +71,7 @@ def process(driver, inn_ogrn,case_id):
             
             # записываем DADATA
             if  not has_listorg and has_inn_otv:
-                json_object_listorg = json.dumps(listor_f(body, myproxy =proxy() ), indent=4)
+                json_object_listorg = json.dumps(listor_f(body, myproxy =proxy(dictionary = True) ), indent=4)
                 with open(path_f, "w") as outfile:
                     outfile.write(json_object_listorg)
 

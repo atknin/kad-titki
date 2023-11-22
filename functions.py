@@ -4,7 +4,6 @@ import json
 from bs4 import BeautifulSoup, element
 from datetime import datetime
 import itertools
-myproxy = {'http':'http://ueLsat:BUdqGP@87.247.146.95:8000'}
 stat_base_url = 'http://app.legaltrack.ru'
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -13,12 +12,16 @@ data_path = os.path.join(BASE_DIR, 'data')
 if not os.path.isdir(data_path):
     os.mkdir(data_path)
 
-def proxy():
+def proxy(dictionary = False):
     proxy = {'ip': 'wproxy.site', 'port': '11996', 'login': 'PywyMF', 'password': 'uKgYE8eH3am2', 'source': 2, 'added_at': '2019-12-15T22:29:01.747Z', 'last_attempt_at': '2020-01-10T09:29:04.635Z', 'is_valid': True, 'valid_index': 0}
-    proxy_server = f'http://{proxy["ip"]}:{proxy["port"]}'
     proxy_server_full = f'{proxy["login"]}:{proxy["password"]}@{proxy["ip"]}:{proxy["port"]}'
-    proxy_auth = {'login':f'{proxy["login"]}','password':f'{proxy["password"]}'}
-    return proxy_server_full
+    if dictionary:
+        return  { 
+              "http"  : f'http://{proxy_server_full}', 
+              "https" :f'https://{proxy_server_full}', 
+            }
+    else:
+        return proxy_server_full
 
 def stripped_text(tag):
     return getattr(tag, 'text').strip()
@@ -44,7 +47,6 @@ def transform_date(string):
     return date.strftime('%Y-%m-%d %H:%M:%S')
 
 def write_stat(id_proxy,data):
-    global myproxy
     print('[.] stat')
     url_stat = stat_base_url + '/api/report_attempt_result/{}/'.format(id_proxy)
     keys = ['url','who','data','method',
