@@ -86,7 +86,7 @@ def to_excel(list_inn):
             for fname in filenames:
                 with open(path+f'{fname}') as f:
                     data = json.loads(f.read())
-                    datetime_object = datetime.strptime(data.get('hearingDate'), '%d.%m.%Y %H:%M:%S')
+                    datetime_object = datetime.strptime(data.get('hearingDate','01.01.1700 00:00:00'), '%d.%m.%Y %H:%M:%S')
                     fnames[fname] = datetime_object
         
 
