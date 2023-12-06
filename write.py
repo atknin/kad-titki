@@ -96,6 +96,7 @@ def to_excel(list_inn):
         for fname_l in fnames_sorted:
             fname = fname_l[0]
             with open(path+f'{fname}') as f:
+                count+=1
                 data = json.loads(f.read())
                 ws[inn] = doxl(data, ws[inn], r = count)
     try:
