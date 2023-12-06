@@ -3,6 +3,7 @@ import re
 from xlwt import Workbook, easyxf,Formula,Font, XFStyle
 from os import walk
 import json
+from datetime import datetime
 
 def write_head(ws):
     print('добавляем загаловки для странице')
@@ -77,12 +78,25 @@ def to_excel(list_inn):
         path = f"data/{inn}/"
         f = []
         count = 0
+        fnames = {}
+
+        
+
         for (dirpath, dirnames, filenames) in walk(path):
             for fname in filenames:
-                count+=1
                 with open(path+f'{fname}') as f:
                     data = json.loads(f.read())
-                    ws[inn] = doxl(data, ws[inn], r = count)
+                    datetime_object = datetime.strptime(data.get('hearingDate'), '%d.%m.%Y %H:%M:%S')
+                    fnames[fname] = datetime_object
+        
+
+        fnames_sorted = sorted(fnames.items(), key=lambda x:x[1])
+
+        count+=1
+        for fname in fnames_sorted:
+            with open(path+f'{fname}') as f:
+                data = json.loads(f.read())
+                ws[inn] = doxl(data, ws[inn], r = count)
     try:
         wb.save(f'result.xls')
         print('все готово)')
