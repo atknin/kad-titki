@@ -27,23 +27,23 @@ requests.get('https://changeip.mobileproxy.space/?proxy_key=c9d64935f5f935255181
 comp_input = [i.replace('\n','').strip() for i in open('input.txt').readlines()]
 
 print('Здорово) погнали')
-for el in comp_input:
-    case_id = 1
-    try: 
-        process(driver, el,case_id)
-        driver.quit()
-        time.sleep(2)
-        ua = UserAgent()
-        driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=headless)
-        time.sleep(5)
-    except Exception as e:
-        print('Блять, ошибка')
-        print(f'перезагружаем браузер - это плохо, скорее всего ничего не получится у нас')
-        # raise e
-        driver.quit()
-        time.sleep(2)
-        ua = UserAgent()
-        driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random)
+# for el in comp_input:
+#     case_id = 1
+#     try: 
+#         process(driver, el,case_id)
+#         driver.quit()
+#         time.sleep(2)
+#         ua = UserAgent()
+#         driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=headless)
+#         time.sleep(5)
+#     except Exception as e:
+#         print('Блять, ошибка')
+#         print(f'перезагружаем браузер - это плохо, скорее всего ничего не получится у нас')
+#         # raise e
+#         driver.quit()
+#         time.sleep(2)
+#         ua = UserAgent()
+#         driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random)
 
 
 # записать все в файл
