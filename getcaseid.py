@@ -58,7 +58,9 @@ def process(driver, inn_ogrn,case_id):
             with open(path_f, "w") as outfile:
                 outfile.write(json_object)
         else:
-            pass
+            json_object = json.dumps(res, indent=4)
+            with open(path_f, "w") as outfile:
+                outfile.write(json_object)
             # print('пропускаем', res.get('case'))
 
         # добавляем дадату        
