@@ -33,7 +33,7 @@ def process(driver, inn_ogrn,case_id):
     driver.get("https://kad.arbitr.ru")
     time.sleep(3)
     runjs(driver,inn_ogrn)
-    time.sleep(2)
+    time.sleep(5)
     html = driver.page_source
     data = parse_cases_list(html) 
 
