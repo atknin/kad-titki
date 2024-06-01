@@ -76,9 +76,23 @@ def parse_cases_list(content):
         court = line.find("td",{'class':'court'}).find_all('div')
         element['court'] = court[2]['title'] if len(court)==3 else court[1]['title']
         
+        element['type'] = 'non'
+
         element['hearingDate'] = line.find("div",{'class':'civil'})['title'] if line.find("div",{'class':'civil'})  else None
+        if element['hearingDate'] is not None: element['type'] = 'civil'
+
         if element['hearingDate'] is None:
             element['hearingDate'] = line.find("div",{'class':'civil_simple'})['title'] if line.find("div",{'class':'civil_simple'})  else None
+            if element['hearingDate'] is not None: element['type'] = 'civil_simple'
+        
+        if element['hearingDate'] is None:
+            element['hearingDate'] = line.find("div",{'class':'bankruptcy'})['title'] if line.find("div",{'class':'bankruptcy'})  else None
+            if element['hearingDate'] is not None: element['type'] = 'bankruptcy'
+        
+        if element['hearingDate'] is None:
+            element['hearingDate'] = line.find("div",{'class':'default'})['title'] if line.find("div",{'class':'default'})  else None
+            if element['hearingDate'] is not None: element['type'] = 'default'
+
 
         element['judge'] = line.find("div",{'class':'judge'})['title'] if line.find("div",{'class':'judge'}) else None
     
