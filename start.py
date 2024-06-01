@@ -18,7 +18,7 @@ from seleniumbase import Driver
 
 from write import to_excel
 ua = UserAgent()
-headless = True
+headless = False
 driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=headless)
 # меняем IP адрес при старте
 requests.get('https://changeip.mobileproxy.space/?proxy_key=d840e245d950d835bcaa6c085c7442e0')
