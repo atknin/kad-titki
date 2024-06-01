@@ -77,6 +77,9 @@ def parse_cases_list(content):
         element['court'] = court[2]['title'] if len(court)==3 else court[1]['title']
         
         element['hearingDate'] = line.find("div",{'class':'civil'})['title'] if line.find("div",{'class':'civil'})  else None
+        if element['hearingDate'] is None:
+            element['hearingDate'] = line.find("div",{'class':'civil_simple'})['title'] if line.find("div",{'class':'civil_simple'})  else None
+
         element['judge'] = line.find("div",{'class':'judge'})['title'] if line.find("div",{'class':'judge'}) else None
     
         istec = line.find("td",{'class':'plaintiff'}).find("span",{'class':'js-rolloverHtml'})
