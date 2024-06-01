@@ -14,7 +14,7 @@ if not os.path.isdir(data_path):
     os.mkdir(data_path)
 
 def proxy(dictionary = False):
-    proxy = {'ip': 'wproxy.site', 'port': '10759', 'login': 'unbUuA', 'password': 'uN1Ek3Syr9AP', 'source': 2, 'added_at': '2019-12-15T22:29:01.747Z', 'last_attempt_at': '2020-01-10T09:29:04.635Z', 'is_valid': True, 'valid_index': 0}
+    proxy = {'ip': 'wproxy.site', 'port': '12930', 'login': 'AFaKPU', 'password': 'haB4ER9uV7rA', 'source': 2, 'added_at': '2019-12-15T22:29:01.747Z', 'last_attempt_at': '2020-01-10T09:29:04.635Z', 'is_valid': True, 'valid_index': 0}
     proxy_server_full = f'{proxy["login"]}:{proxy["password"]}@{proxy["ip"]}:{proxy["port"]}'
     if dictionary:
         return  { 
