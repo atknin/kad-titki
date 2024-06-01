@@ -19,7 +19,7 @@ from pathlib import Path
 
 # import subprocess
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
+rewrite = 1
 
 
 def runjs(driver,inn_ogrn):
@@ -59,9 +59,10 @@ def process(driver, inn_ogrn,case_id):
                 outfile.write(json_object)
         else:
             # print('пропускаем', res.get('case'))
-            json_object = json.dumps(res, indent=4)
-            with open(path_f, "w") as outfile:
-                outfile.write(json_object)
+            if rewrite == 1: 
+                json_object = json.dumps(res, indent=4)
+                with open(path_f, "w") as outfile:
+                    outfile.write(json_object)
 
         # добавляем дадату        
         with open(path_f) as f:
