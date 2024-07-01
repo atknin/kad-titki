@@ -5,22 +5,29 @@ from bs4 import BeautifulSoup, element
 from datetime import datetime
 import itertools
 from fake_useragent import UserAgent
+import configparser
+
 stat_base_url = 'http://app.legaltrack.ru'
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
 data_path = os.path.join(BASE_DIR, 'data')
-if not os.path.isdir(data_path):
-    os.mkdir(data_path)
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+if not os.path.isdir(data_path):  os.mkdir(data_path)
 
 def proxy(dictionary = False):
-    proxy = {'ip': 'wproxy.site', 'port': '12930', 'login': 'AFaKPU', 'password': 'haB4ER9uV7rA', 'source': 2, 'added_at': '2019-12-15T22:29:01.747Z', 'last_attempt_at': '2020-01-10T09:29:04.635Z', 'is_valid': True, 'valid_index': 0}
-    proxy_server_full = f'{proxy["login"]}:{proxy["password"]}@{proxy["ip"]}:{proxy["port"]}'
+    print(config)
+    login = config.get('Proxy', 'login')
+    password = config.get('Proxy', 'password')
+    ip = config.get('Proxy', 'ip')
+    port = config.get('Proxy', 'port')
+
+    proxy_server_full = f'{login}:{password}@{ip}:{port}'
+
     if dictionary:
-        return  { 
-              "http"  : f'http://{proxy_server_full}', 
-              "https" :f'https://{proxy_server_full}', 
-            }
+        return  {   "http"  : f'http://{proxy_server_full}', 
+                     "https" :f'https://{proxy_server_full}',   
+                }
     else:
         return proxy_server_full
 
