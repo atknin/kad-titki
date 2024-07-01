@@ -1,2 +1,5 @@
 data/
 result.xls
+env/
+downloaded_files/
+*.pyc
