@@ -66,7 +66,7 @@ def doxl(data, ws,r = 1):
     ws.write(r, 6, data.get('listorg',{}).get('Телефон','-'))
     ws.write(r, 7, data.get('1'))
     ws.write(r, 8,  Formula(n + f'("https://kad.arbitr.ru/Card/{uid}";"{case}")'))
-    ws.write(r, 9, data.get(uid))
+    ws.write(r, 9, uid)
     return ws
 
 def to_excel(list_inn):
@@ -103,10 +103,12 @@ def to_excel(list_inn):
                 data = json.loads(f.read())
                 
                 # с кэша забираем инн
-                if len(data.get('otvetchik-inn',''))<5:
-                    inn = get_inn_cach(data.get('uid'))
-                    if len(inn)>5: 
-                        data['otvetchik-inn'] = inn
+                case_id = data.get('otvetchik-inn','') if data.get('otvetchik-inn') else ''
+                if len(case_id)<5:
+                    print('получаем инн отвечика c кэша')
+                    otvetchik_inn = get_inn_cach(data.get('uid'))
+                    if len(otvetchik_inn)>5: 
+                        data['otvetchik-inn'] = otvetchik_inn
                         with open(path+f'{fname}', 'w', encoding="utf-8") as f: f.write(json.dumps(data))
 
                 ws[inn] = doxl(data, ws[inn], r = count)
