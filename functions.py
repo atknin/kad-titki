@@ -6,7 +6,7 @@ from datetime import datetime
 import itertools
 from fake_useragent import UserAgent
 import configparser
-
+import random
 stat_base_url = 'http://app.legaltrack.ru'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 data_path = os.path.join(BASE_DIR, 'data')
@@ -14,6 +14,10 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 
 if not os.path.isdir(data_path):  os.mkdir(data_path)
+
+def token_dadata():
+    a = [config.get('Dadata', 'token1'),config.get('Dadata', 'token2')]
+    return random.choice(a)
 
 def proxy(dictionary = False):
     print(config)
@@ -238,13 +242,28 @@ def listor_f(data, myproxy = None):
         
 
 
+def rusprofile(data):
+    inn = str(data['otvetchik-inn'])
+    print(f'\rusprofile {inn}', end='', flush=True)
+    response = requests.get('https://www.rusprofile.ru/ajax.php?&query={}&action=search'.format(inn))
+    data = response.json()['ul'][0]
+    print(data)
+    result = {}
+    # json_data['founder'] = {
+    #     'inn':data,
+    #     'name':data
+    #     }
+    result['rusprofile'] = data
+    return result
+
+
 
 
 def da_data(data):
     headers = {
         "Content-Type": "application/json",
         "Accept": "application/json",
-        "Authorization": "Token 731d578f91142b6ff8e3b5659badb868b78dafae"
+        "Authorization": "Token {}".format(token_dadata()) 
     }
     dadata = requests.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party',data=json.dumps({ "query": str(data['otvetchik-inn']) }), headers = headers).json()
     if 'suggestions' in dadata: 
