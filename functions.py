@@ -14,13 +14,13 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 
 if not os.path.isdir(data_path):  os.mkdir(data_path)
+proxy_key = config.get('Proxy', 'key')
 
 def token_dadata():
     a = [config.get('Dadata', 'token1'),config.get('Dadata', 'token2')]
     return random.choice(a)
 
 def proxy(dictionary = False):
-    print(config)
     login = config.get('Proxy', 'login')
     password = config.get('Proxy', 'password')
     ip = config.get('Proxy', 'ip')
@@ -189,6 +189,10 @@ def get_status_code_response(response):
    
 
 def listor_f(data, myproxy = None):
+    listorg_go = config.get('Settings', 'listorg')
+    if listorg_go != '1': 
+        print('листорг отключен')
+        return data
     myproxy = None
     ua = UserAgent()
     headers_list_org = {
@@ -304,5 +308,4 @@ def get_inn_cach(uid):
     return ''
 
 if __name__ == '__main__':
-    print('start')
-    cach_inn()
+    print('start',proxy_key)

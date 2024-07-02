@@ -11,7 +11,7 @@ import json
 import time
 import os,sys
 import subprocess
-from functions import proxy, cach_inn
+from functions import proxy, cach_inn,proxy_key
 from getcaseid import process
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 from seleniumbase import Driver
@@ -21,7 +21,8 @@ ua = UserAgent()
 headless = False
 driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=headless)
 # меняем IP адрес при старте
-requests.get('https://changeip.mobileproxy.space/?proxy_key=d840e245d950d835bcaa6c085c7442e0')
+ 
+requests.get(f'https://changeip.mobileproxy.space/?proxy_key={proxy_key}')
 
 
 comp_input = [i.replace('\n','').strip() for i in open('input.txt').readlines()]
@@ -30,7 +31,7 @@ try: cach_inn()
 except: pass
 
 
-print('Здорово) погнали')
+print('Работаем с компаниями:')
 for el in comp_input:
     case_id = 1
     try: 
@@ -41,8 +42,8 @@ for el in comp_input:
         driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=headless)
         time.sleep(5)
     except Exception as e:
-        print('Блять, ошибка')
-        print(f'перезагружаем браузер - это плохо, скорее всего ничего не получится у нас')
+        print('ошибка...')
+        print(f'перезагружаем браузер')
         # raise e
         driver.quit()
         time.sleep(2)
