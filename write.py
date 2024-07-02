@@ -16,7 +16,8 @@ def write_head(ws):
         'ФИО Гендира Ответчика',
         'Номера телефонов ЛПР',
         'Цена иска',
-        'Номер дела'
+        'Номер дела',
+        'uid',
     ]
     f = Font()
     # f.height = 20*72
@@ -65,9 +66,11 @@ def doxl(data, ws,r = 1):
     ws.write(r, 6, data.get('listorg',{}).get('Телефон','-'))
     ws.write(r, 7, data.get('1'))
     ws.write(r, 8,  Formula(n + f'("https://kad.arbitr.ru/Card/{uid}";"{case}")'))
+    ws.write(r, 9, data.get(uid))
     return ws
 
 def to_excel(list_inn):
+    from functions import get_inn_cach
     print('переписываем EXCEL')
     wb = Workbook()
     ws = {}
@@ -98,6 +101,14 @@ def to_excel(list_inn):
             with open(path+f'{fname}') as f:
                 count+=1
                 data = json.loads(f.read())
+                
+                # с кэша забираем инн
+                if len(data.get('otvetchik-inn',''))<5:
+                    inn = get_inn_cach(data.get('uid'))
+                    if len(inn)>5: 
+                        data['otvetchik-inn'] = inn
+                        with open(path+f'{fname}', 'w', encoding="utf-8") as f: f.write(json.dumps(data))
+
                 ws[inn] = doxl(data, ws[inn], r = count)
     try:
         wb.save(f'result.xls')

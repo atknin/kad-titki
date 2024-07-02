@@ -120,6 +120,7 @@ def parse_cases_list(content):
         element['otvetchik-inn'] = div_inn.text.replace('\t','').replace('\r','').replace(' ','').replace('\n','').strip().split(':')[1] if div_inn else None
         data.append(element)
     return data
+
 def parse_instances(content,card_link):
     data = {}
     soup = BeautifulSoup(content, 'html.parser')
@@ -270,3 +271,38 @@ def da_data(data):
         if len(dadata['suggestions'])!=0:
             data['dadata-otvetchik'] = dadata['suggestions'][0]
     return data
+
+
+def cach_inn(name = "result.xls"):
+    path = './data/cach.json'
+    import xlrd
+    try:
+        with open(path) as f: data = json.loads(f.read())
+    except:  data = {}
+    file_loc = (name)
+    py_xl = xlrd.open_workbook(file_loc)
+    for py_sheet in py_xl.sheets():
+        for row in range(2,py_sheet.nrows):
+            name = py_sheet.cell_value (row, 0)
+            inn = py_sheet.cell_value (row, 2)
+            try: uid = py_sheet.cell_value (row, 9)
+            except: uid = ''
+            if len(uid)<5: continue
+            if uid in data: continue
+            if len(inn)<5: continue
+
+            data[uid] = inn
+            # проверить записан в базе или нет
+
+        
+    with open(path, 'w', encoding="utf-8") as f: f.write(json.dumps(data))
+
+def get_inn_cach(uid):
+    path = './data/cach.json'
+    with open(path) as f: data = json.loads(f.read())
+    if uid in data: return data[uid]
+    return ''
+
+if __name__ == '__main__':
+    print('start')
+    cach_inn()

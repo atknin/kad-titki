@@ -64,7 +64,7 @@ def process(driver, inn_ogrn,case_id):
                 with open(path_f, "w") as outfile:
                     outfile.write(json_object)
 
-        # добавляем дадату        
+        # добавляем дадату и листорг       
         with open(path_f) as f:
             body = json.loads(f.read())
             has_dadata = 'dadata-otvetchik' in body

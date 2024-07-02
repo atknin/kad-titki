@@ -11,7 +11,7 @@ import json
 import time
 import os,sys
 import subprocess
-from functions import proxy
+from functions import proxy, cach_inn
 from getcaseid import process
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 from seleniumbase import Driver
@@ -25,7 +25,8 @@ requests.get('https://changeip.mobileproxy.space/?proxy_key=d840e245d950d835bcaa
 
 
 comp_input = [i.replace('\n','').strip() for i in open('input.txt').readlines()]
-
+# нужно прогнать excel на ответчиков, записать те инн которых нет 
+cach_inn()
 print('Здорово) погнали')
 for el in comp_input:
     case_id = 1
