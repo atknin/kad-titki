@@ -351,7 +351,10 @@ def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mprox
     inn_info = soup.find('span', {'data-test': 'manager-inn'})
 
     # Извлечение текста из элементов
-    director_name = director_info.get_text(strip=True) if director_info else 'Не найдено'
+
+    if director_info:
+        director_name = director_info.get_text(strip=True)
+    else: return data
     director_inn = inn_info.get_text(strip=True) if inn_info else 'Не найдено'
 
     # Вывод результата
