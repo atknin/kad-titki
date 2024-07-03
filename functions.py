@@ -193,7 +193,6 @@ def listor_f(data, myproxy = None):
     if listorg_go != '1': 
         print('листорг отключен')
         return data
-    myproxy = None
     ua = UserAgent()
     headers_list_org = {
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -307,5 +306,26 @@ def get_inn_cach(uid):
     if uid in data: return data[uid]
     return ''
 
+def dadata_card_parser(inn,myproxy = None):
+    link = f'https://dadata.ru/find/party/{inn}/'
+
+    ua = UserAgent()
+    headers = {
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+            "Pragma": "no-cache",
+            "User-Agent":  ua.random,
+            "upgrade-insecure-requests": "1",
+            "sec-fetch-user": "?1",
+            "sec-fetch-site": "none",
+            "sec-fetch-dest": "document",
+            "accept-language": "en-US,en;q=0.9,ru;q=0.8",
+            "accept-encoding": "gzip, deflate, br",
+            "sec-fetch-mode": "navigate",
+        }
+    inn = s
+
+    main_page = requests.get(link,timeout=10, headers = headers ,proxies=myproxy)
+
+    return ''
 if __name__ == '__main__':
     print('start',proxy_key)
