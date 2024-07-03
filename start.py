@@ -42,6 +42,7 @@ for el in comp_input:
         driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=headless)
         time.sleep(5)
     except Exception as e:
+        raise e
         print('ошибка...')
         print(f'перезагружаем браузер')
         # raise e

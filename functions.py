@@ -191,7 +191,6 @@ def get_status_code_response(response):
 def listor_f(data, myproxy = None):
     listorg_go = config.get('Settings', 'listorg')
     if listorg_go != '1': 
-        print('листорг отключен')
         return data
     ua = UserAgent()
     headers_list_org = {
@@ -306,15 +305,15 @@ def get_inn_cach(uid):
     if uid in data: return data[uid]
     return ''
 
-def dadata_card_parser(data,myproxy = None):
-
+def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mproxy.site:10293', 'https': 'https://Yp5nub:HYjVYpuVuP4e@mproxy.site:10293'}):
+    myproxy = None
     dadatacard_go = config.get('Settings', 'dadatacard')
-    if dadatacard_go != '1': 
-        print('dadata card отключен')
-        return data 
-     
-    inn = str(data['otvetchik-inn'])
-    print(f'\dadata card {inn}', end='', flush=True)
+    if dadatacard_go != '1':   return data 
+    inn = data.get('otvetchik-inn', None)
+    if inn is None: 
+        print('нет инн')
+        return data
+    print(f'dadata card {inn}')
 
     link = f'https://dadata.ru/find/party/{inn}/'
     ua = UserAgent()
@@ -333,20 +332,25 @@ def dadata_card_parser(data,myproxy = None):
 
     data_page = requests.get(link,timeout=10, headers = headers ,proxies=myproxy)
     content2 = data_page.content.decode("utf-8")
-    soup_data_page = BeautifulSoup(content2, "html.parser")
-    # ps = soup_data_page.findAll('p')
-    json_data = {}
-    # for p in ps:
-    #     if p.find('i'):
-    #         key = p.find('i').text
-    #         json_data[key.replace(':','')] = p.text.replace(key,'')
+    # Парсинг HTML-контента с использованием BeautifulSoup
+    soup = BeautifulSoup(content2, 'html.parser')
 
-    # founders =  soup_data_page.find('div',{'id':'founders'})
-    json_data['gendir'] = {
-        'inn':'',
-        'name':''
+    # Извлечение информации о генеральном директоре и его ИНН
+    director_info = soup.find('span', {'data-test': 'manager-name'})
+    inn_info = soup.find('span', {'data-test': 'manager-inn'})
+
+    # Извлечение текста из элементов
+    director_name = director_info.get_text(strip=True) if director_info else 'Не найдено'
+    director_inn = inn_info.get_text(strip=True) if inn_info else 'Не найдено'
+
+    # Вывод результата
+    print(f'Генеральный директор: {director_name}')
+    print(f'ИНН: {director_inn}')
+
+    data['dadata-card'] = {
+        'inn':director_inn,
+        'name':director_name
         }
-    data['dadata-card'] = json_data
     return data
 
 
@@ -355,7 +359,6 @@ def glaz_boga_phones(data,myproxy = None):
 
     glazboga_go = config.get('Settings', 'glazboga')
     if glazboga_go != '1': 
-        print('glazboga отключен')
         return data 
     
     
@@ -365,4 +368,4 @@ def glaz_boga_phones(data,myproxy = None):
     return data
 
 if __name__ == '__main__':
-    print('start',proxy_key)
+    dadata_card_parser({'otvetchik-inn':'7727421935'})

@@ -51,18 +51,18 @@ def doxl(data, ws,r = 1):
         otvetchic_gendir = '-'
         # print(data.get('dadata-otvetchik',{}))
     try:
-        listorg_inn_founder_otvetchik = data.get('listorg',{}).get('founder',{}).get('inn','-')
-        listorg_name_otvetchic = data.get('listorg',{}).get('founder',{}).get('name','-')
+        dadatacard_inn_gen = data.get('dadata-card',{}).get('inn','-')
+        dadatacard_name_gen = data.get('dadata-card',{}).get('name','-')
     except:
-        listorg_inn_founder_otvetchik = '-'
-        listorg_name_otvetchic = data.get('listorg',{}).get('founder',{}).get('name','-')
+        dadatacard_inn_gen = '-'
+        dadatacard_name_gen = '-'
 
     ws.write(r, 0, data.get('otvetchik'))
     ws.write(r, 1, data.get('hearingDate'))
     ws.write(r, 2, data.get('otvetchik-inn'))
     ws.write(r, 3, data.get('istec'))
-    ws.write(r, 4, listorg_inn_founder_otvetchik)
-    ws.write(r, 5, listorg_name_otvetchic)
+    ws.write(r, 4, dadatacard_inn_gen)
+    ws.write(r, 5, dadatacard_name_gen)
     ws.write(r, 6, data.get('listorg',{}).get('Телефон','-'))
     ws.write(r, 7, data.get('1'))
     ws.write(r, 8,  Formula(n + f'("https://kad.arbitr.ru/Card/{uid}";"{case}")'))

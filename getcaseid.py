@@ -78,40 +78,35 @@ def process(driver, inn_ogrn,case_id):
 
             
             if not has_dadata and has_inn_otv:
-                json_object = json.dumps(da_data(body), indent=4)
+                body = da_data(body)
                 with open(path_f, "w") as outfile:
-                    outfile.write(json_object)
-                    body = json_object
+                    outfile.write(json.dumps(body, indent=4))
 
             # записываем DADATA
             if  not has_dadata_card and has_inn_otv:
                 try:
-                    json_object_dadatacard =  dadata_card_parser(body, myproxy =proxy(dictionary = True) )
+                    body =  dadata_card_parser(body, myproxy =proxy(dictionary = True) )
                     with open(path_f, "w") as outfile:
-                        outfile.write(json_object_dadatacard)
+                        outfile.write(json.dumps(body, indent=4))
                         has_dadata_card = True
-                        body = json_object_dadatacard
                 except Exception as e:
+                    raise e
                     print('– не смогли получить данные дадата карточка')
 
 
              # записываем Глазбга
             if  not glazboga and has_dadata_card:
                 try:
-                    json_object_glazboga =  glaz_boga_phones(body, myproxy =proxy(dictionary = True) )
-                    with open(path_f, "w") as outfile:
-                        outfile.write(json_object_glazboga)
-                        body = json_object_glazboga
+                    body =  glaz_boga_phones(body, myproxy =proxy(dictionary = True) )
+                    with open(path_f, "w") as outfile: outfile.write(json.dumps(body, indent=4))
                 except Exception as e:
                     print('– не смогли получить данные глазбога')
 
 
             if  not has_listorg and has_inn_otv:
                 try:
-                    json_object_listorg = json.dumps(listor_f(body, myproxy =proxy(dictionary = True) ), indent=4)
-                    with open(path_f, "w") as outfile:
-                        outfile.write(json_object_listorg)
-                        body = json_object_listorg
+                    body = listor_f(body, myproxy =proxy(dictionary = True) )
+                    with open(path_f, "w") as outfile: outfile.write(json.dumps(body, indent=4))
                 except Exception as e:
                     print('– не смогли получить данные')
 
