@@ -306,9 +306,17 @@ def get_inn_cach(uid):
     if uid in data: return data[uid]
     return ''
 
-def dadata_card_parser(inn,myproxy = None):
-    link = f'https://dadata.ru/find/party/{inn}/'
+def dadata_card_parser(data,myproxy = None):
 
+    dadatacard_go = config.get('Settings', 'dadatacard')
+    if dadatacard_go != '1': 
+        print('dadata card отключен')
+        return data 
+     
+    inn = str(data['otvetchik-inn'])
+    print(f'\dadata card {inn}', end='', flush=True)
+
+    link = f'https://dadata.ru/find/party/{inn}/'
     ua = UserAgent()
     headers = {
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -322,10 +330,39 @@ def dadata_card_parser(inn,myproxy = None):
             "accept-encoding": "gzip, deflate, br",
             "sec-fetch-mode": "navigate",
         }
-    inn = s
 
-    main_page = requests.get(link,timeout=10, headers = headers ,proxies=myproxy)
+    data_page = requests.get(link,timeout=10, headers = headers ,proxies=myproxy)
+    content2 = data_page.content.decode("utf-8")
+    soup_data_page = BeautifulSoup(content2, "html.parser")
+    # ps = soup_data_page.findAll('p')
+    json_data = {}
+    # for p in ps:
+    #     if p.find('i'):
+    #         key = p.find('i').text
+    #         json_data[key.replace(':','')] = p.text.replace(key,'')
 
-    return ''
+    # founders =  soup_data_page.find('div',{'id':'founders'})
+    json_data['gendir'] = {
+        'inn':'',
+        'name':''
+        }
+    data['dadata-card'] = json_data
+    return data
+
+
+
+def glaz_boga_phones(data,myproxy = None):
+
+    glazboga_go = config.get('Settings', 'glazboga')
+    if glazboga_go != '1': 
+        print('glazboga отключен')
+        return data 
+    
+    
+    data['glazboga'] = {
+        'phones':''
+    }
+    return data
+
 if __name__ == '__main__':
     print('start',proxy_key)

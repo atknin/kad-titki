@@ -11,7 +11,7 @@ import random
 from fake_useragent import UserAgent
 
 import time
-from functions import parse_cases_list,da_data,listor_f, proxy
+from functions import parse_cases_list,da_data,listor_f, proxy,dadata_card_parser,glaz_boga_phones
 import random
 import os
 
@@ -69,24 +69,52 @@ def process(driver, inn_ogrn,case_id):
             body = json.loads(f.read())
             has_dadata = 'dadata-otvetchik' in body
             has_listorg = 'listorg' in body
-
+            has_dadata_card = 'dadata-card' in body
+            glazboga = 'glazboga' in body
             has_inn_otv = body.get('otvetchik-inn') is not None
             
+           
+
+
+            
+            if not has_dadata and has_inn_otv:
+                json_object = json.dumps(da_data(body), indent=4)
+                with open(path_f, "w") as outfile:
+                    outfile.write(json_object)
+                    body = json_object
+
             # записываем DADATA
+            if  not has_dadata_card and has_inn_otv:
+                try:
+                    json_object_dadatacard =  dadata_card_parser(body, myproxy =proxy(dictionary = True) )
+                    with open(path_f, "w") as outfile:
+                        outfile.write(json_object_dadatacard)
+                        has_dadata_card = True
+                        body = json_object_dadatacard
+                except Exception as e:
+                    print('– не смогли получить данные дадата карточка')
+
+
+             # записываем Глазбга
+            if  not glazboga and has_dadata_card:
+                try:
+                    json_object_glazboga =  glaz_boga_phones(body, myproxy =proxy(dictionary = True) )
+                    with open(path_f, "w") as outfile:
+                        outfile.write(json_object_glazboga)
+                        body = json_object_glazboga
+                except Exception as e:
+                    print('– не смогли получить данные глазбога')
+
+
             if  not has_listorg and has_inn_otv:
                 try:
                     json_object_listorg = json.dumps(listor_f(body, myproxy =proxy(dictionary = True) ), indent=4)
                     with open(path_f, "w") as outfile:
                         outfile.write(json_object_listorg)
+                        body = json_object_listorg
                 except Exception as e:
                     print('– не смогли получить данные')
 
 
-            if  not has_dadata and has_inn_otv:
-                json_object = json.dumps(da_data(body), indent=4)
-                with open(path_f, "w") as outfile:
-                    outfile.write(json_object)
-            else:
-                pass
-                # print('пропускаем',body.get('otvetchik-inn'))
+            
     return driver
