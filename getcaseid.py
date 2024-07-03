@@ -90,7 +90,6 @@ def process(driver, inn_ogrn,case_id):
                         outfile.write(json.dumps(body, indent=4))
                         has_dadata_card = True
                 except Exception as e:
-                    raise e
                     print('– не смогли получить данные дадата карточка')
 
 
