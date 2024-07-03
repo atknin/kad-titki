@@ -306,13 +306,24 @@ def get_inn_cach(uid):
     return ''
 
 def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mproxy.site:10293', 'https': 'https://Yp5nub:HYjVYpuVuP4e@mproxy.site:10293'}):
+    
     myproxy = None
     dadatacard_go = config.get('Settings', 'dadatacard')
     if dadatacard_go != '1':   return data 
     inn = data.get('otvetchik-inn', None)
+
+    
     if inn is None: 
         print('нет инн')
         return data
+    
+    if len('550514260066') == len(inn):
+        data['dadata-card'] = {
+            'inn':inn,
+            'name':data.get('otvetchik')
+            }
+        return data
+
     print(f'dadata card {inn}')
 
     link = f'https://dadata.ru/find/party/{inn}/'
