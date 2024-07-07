@@ -345,11 +345,11 @@ def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mprox
     content2 = data_page.content.decode("utf-8")
     # Парсинг HTML-контента с использованием BeautifulSoup
     soup = BeautifulSoup(content2, 'html.parser')
-
+    print(content2)
     # Извлечение информации о генеральном директоре и его ИНН
     director_info = soup.find('span', {'data-test': 'manager-name'})
     inn_info = soup.find('span', {'data-test': 'manager-inn'})
-
+    print(director_info,inn_info)
     # Извлечение текста из элементов
 
     if director_info:
@@ -381,7 +381,7 @@ def glaz_boga_phones(data,myproxy = None):
 
     # ------- input -----------
     bot_name = config.get('Telegram', 'glazbot')
-    search_input_for_bot = f"{data['dadata-card']["name"]} {data['dadata-card']["inn"]}"
+    search_input_for_bot = f"{data['dadata-card']['name']} {data['dadata-card']['inn']}"
     # ИП АТКНИН ИВАН ИВАНОВИЧ 550514260066
     # ------- / input -----------
     
@@ -392,4 +392,4 @@ def glaz_boga_phones(data,myproxy = None):
     return data
 
 if __name__ == '__main__':
-    dadata_card_parser({'otvetchik-inn':'7727421935'})
+    dadata_card_parser({'otvetchik-inn':'7708298348'})
