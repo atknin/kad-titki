@@ -370,12 +370,22 @@ def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mprox
 
 
 def glaz_boga_phones(data,myproxy = None):
+    # izal code 
+    # import functions inside this functions 
+    # get bot name from config 
+    
 
     glazboga_go = config.get('Settings', 'glazboga')
-    if glazboga_go != '1': 
-        return data 
+    if glazboga_go != '1':   return data 
+    if 'dadata-card' not in data: return data 
+
+    # ------- input -----------
+    bot_name = config.get('Telegram', 'glazbot')
+    search_input_for_bot = f"{data['dadata-card']["name"]} {data['dadata-card']["inn"]}"
+    # ИП АТКНИН ИВАН ИВАНОВИЧ 550514260066
+    # ------- / input -----------
     
-    
+
     data['glazboga'] = {
         'phones':''
     }
