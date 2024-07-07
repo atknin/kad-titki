@@ -373,7 +373,7 @@ def glaz_boga_phones(data,myproxy = None):
     # izal code 
     # import functions inside this functions 
     # get bot name from config 
-    
+    # test pull request
 
     glazboga_go = config.get('Settings', 'glazboga')
     if glazboga_go != '1':   return data 
