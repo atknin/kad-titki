@@ -384,12 +384,18 @@ def glaz_boga_phones(data,myproxy = None):
     search_input_for_bot = f"{data['dadata-card']["name"]} {data['dadata-card']["inn"]}"
     # ИП АТКНИН ИВАН ИВАНОВИЧ 550514260066
     # ------- / input -----------
+    status = False 
+    # result,status = your_function(bot_name,search_input_for_bot)
     
+    if status:
+        data['glazboga'] = {
+            'phones':'' #result
+        }
+        return data
+    else: 
+        return data
 
-    data['glazboga'] = {
-        'phones':''
-    }
-    return data
+        
 
 if __name__ == '__main__':
     dadata_card_parser({'otvetchik-inn':'7727421935'})
