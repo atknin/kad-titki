@@ -319,7 +319,7 @@ def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mprox
     
     if len('550514260066') == len(inn):
         data['dadata-card'] = {
-            'inn':inn,
+            'inn':f'{inn}',
             'name':data.get('otvetchik')
             }
         return data
@@ -341,15 +341,16 @@ def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mprox
             "sec-fetch-mode": "navigate",
         }
 
-    data_page = requests.get(link,timeout=10, headers = headers ,proxies=myproxy)
+    data_page = requests.get(link,timeout=15, headers = headers ,proxies=myproxy)
     content2 = data_page.content.decode("utf-8")
+    print(content2)
     # Парсинг HTML-контента с использованием BeautifulSoup
     soup = BeautifulSoup(content2, 'html.parser')
-    print(content2)
     # Извлечение информации о генеральном директоре и его ИНН
+    name = soup.find('h1', {'data-test': 'name'})
     director_info = soup.find('span', {'data-test': 'manager-name'})
     inn_info = soup.find('span', {'data-test': 'manager-inn'})
-    print(director_info,inn_info)
+    print(name,director_info,inn_info)
     # Извлечение текста из элементов
 
     if director_info:
@@ -359,7 +360,7 @@ def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mprox
 
     # Вывод результата
     print(f'Генеральный директор: {director_name}')
-    print(f'ИНН: {director_inn}')
+    print(f' {director_inn}')
 
     data['dadata-card'] = {
         'inn':director_inn,
