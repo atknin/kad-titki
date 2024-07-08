@@ -329,21 +329,22 @@ def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mprox
     link = f'https://dadata.ru/find/party/{inn}/'
     ua = UserAgent()
     headers = {
-            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-            "Pragma": "no-cache",
-            "User-Agent":  ua.random,
-            "upgrade-insecure-requests": "1",
-            "sec-fetch-user": "?1",
-            "sec-fetch-site": "none",
-            "sec-fetch-dest": "document",
-            "accept-language": "en-US,en;q=0.9,ru;q=0.8",
-            "accept-encoding": "gzip, deflate, br",
-            "sec-fetch-mode": "navigate",
+        "Host": "dadata.ru",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5",
+        "Accept-Encoding":"gzip, deflate, br, zstd",
+        "Connection": "keep-alive",
+        "Cookie": "csrftoken=jUhWms5JOCsFfPy1a4pWSHUxBRpxmww4yrKCiUzyZBp1dSYK88klgEStCEe042zH; ab_tests_fetched=1; tmr_lvid=756b8aa946020e141c831ff28606569a; tmr_lvidTS=1720331862005; _ym_uid=1720331863511492717; _ym_d=1720331863; _ga=GA1.2.73355654.1720331863; _gid=GA1.2.1927066372.1720331863; domain_sid=0znB2mAS_DgaUKdWoxkhW%3A1720331863326; _ga_QFDSLR5J5R=GS1.2.1720331863.1.1.1720331889.34.0.0; _ym_isad=2; tmr_detect=0%7C1720331891404",
+        "User-Agent": ua.random,
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "cross-site",
+        "Priority": "u=0, i"
         }
 
     data_page = requests.get(link,timeout=15, headers = headers ,proxies=myproxy)
     content2 = data_page.content.decode("utf-8")
-    print(content2)
     # Парсинг HTML-контента с использованием BeautifulSoup
     soup = BeautifulSoup(content2, 'html.parser')
     # Извлечение информации о генеральном директоре и его ИНН
