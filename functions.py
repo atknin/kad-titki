@@ -344,7 +344,11 @@ def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mprox
         }
 
     data_page = requests.get(link,timeout=15, headers = headers ,proxies=myproxy)
+    # сохранить html в текующую папку в log
+    # UnicodeEncodeError: 'charmap' codec can't encode characters in position 164-169: character maps to <undefined>
+    
     content2 = data_page.content.decode("utf-8")
+    with open(f'./log/{inn}.html','w', encoding="utf-8") as f: f.write(str(content2))
     # Парсинг HTML-контента с использованием BeautifulSoup
     soup = BeautifulSoup(content2, 'html.parser')
     # Извлечение информации о генеральном директоре и его ИНН
@@ -424,4 +428,4 @@ def glaz_boga_phones(data, myproxy=None):
 
 
 if __name__ == '__main__':
-    dadata_card_parser({'otvetchik-inn':'7708298348'})
+    dadata_card_parser({'otvetchik-inn':'6726025574'})
