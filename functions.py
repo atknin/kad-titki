@@ -371,27 +371,57 @@ def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mprox
 
 
 
-def glaz_boga_phones(data,myproxy = None):
+
+
+def glaz_boga_phones(data, myproxy=None):
     # izal code 
     # import functions inside this functions 
-    # get bot name from config 
-    # test pull request
-
-    glazboga_go = config.get('Settings', 'glazboga')
-    if glazboga_go != '1':   return data 
-    if 'dadata-card' not in data: return data 
-
-    # ------- input -----------
-    bot_name = config.get('Telegram', 'glazbot')
-    search_input_for_bot = f"{data['dadata-card']['name']} {data['dadata-card']['inn']}"
-    # ИП АТКНИН ИВАН ИВАНОВИЧ 550514260066
-    # ------- / input -----------
+    # get bot name from config
     
+    import asyncio
+    from info_bot import auth, send_message, get_response, click_first_button
 
     data['glazboga'] = {
-        'phones':''
+        'phones': ''
     }
+
+    
+    glazboga_go = config.get('Settings', 'glazboga')
+    if glazboga_go != '1':
+        return data
+    if 'dadata-card' not in data:
+        return data
+
+    bot_name = config.get('Telegram', 'glazbot')
+    search_input_for_bot = f"{data['dadata-card']['name']} {data['dadata-card']['inn']}"
+
+    
+    async def fetch_phone_number():
+        client = await auth()
+
+        
+        await send_message(client, bot_name, '/search')
+        await asyncio.sleep(2)
+
+        
+        await send_message(client, bot_name, search_input_for_bot)
+        await asyncio.sleep(2)
+
+        
+        response_message = await get_response(client, bot_name)
+        if response_message:
+            await click_first_button(response_message)
+            await asyncio.sleep(2)
+            final_response = await get_response(client, bot_name)
+            if final_response:
+                
+                data['glazboga']['phones'] = final_response.message
+
+    
+    asyncio.run(fetch_phone_number())
+
     return data
+
 
 if __name__ == '__main__':
     dadata_card_parser({'otvetchik-inn':'7708298348'})
