@@ -21,10 +21,16 @@ def token_dadata():
     return random.choice(a)
 
 def proxy(dictionary = False):
-    login = config.get('Proxy', 'login')
-    password = config.get('Proxy', 'password')
-    ip = config.get('Proxy', 'ip')
-    port = config.get('Proxy', 'port')
+    response = requests.get(
+        'https://roma.kazna.tech/api/get-settings',
+    )
+
+    data_settings = response.json().get('data')
+    print('data_settings',data_settings)
+    login = data_settings.get('proxy_login')
+    password = data_settings.get('proxy_password')
+    ip = data_settings.get('proxy_ip')
+    port = data_settings.get('proxy_port')
 
     proxy_server_full = f'{login}:{password}@{ip}:{port}'
 
@@ -358,8 +364,7 @@ def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mprox
     print(name,director_info,inn_info)
     # Извлечение текста из элементов
 
-    if director_info:
-        director_name = director_info.get_text(strip=True)
+    if director_info:  director_name = director_info.get_text(strip=True)
     else: return data
     director_inn = inn_info.get_text(strip=True) if inn_info else 'Не найдено'
 

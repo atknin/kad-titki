@@ -18,18 +18,20 @@ from seleniumbase import Driver
 
 from write import to_excel
 ua = UserAgent()
+print(proxy())
 headless = False
 driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=headless)
 # меняем IP адрес при старте
  
-requests.get(f'https://changeip.mobileproxy.space/?proxy_key={proxy_key}')
+# proxy_req = requests.get(f'https://changeip.mobileproxy.space/?proxy_key={proxy_key}')
+# print('proxy_req',proxy_key,proxy_req.text)
 
 
-comp_input = [i.replace('\n','').strip() for i in open('input.txt').readlines()]
+# comp_input = [i.replace('\n','').strip() for i in open('input.txt').readlines()]
+comp_input = [i.get('inn') for i in requests.get('https://roma.kazna.tech/api/get-companies').json().get('data')]
 # нужно прогнать excel на ответчиков, записать те инн которых нет 
-try: cach_inn()
-except: pass
-
+# try: cach_inn()
+# except: pass
 
 print('Работаем с компаниями:')
 for el in comp_input:
@@ -52,5 +54,5 @@ for el in comp_input:
 
 
 # записать все в файл
-to_excel(comp_input)
-driver.quit()
+# to_excel(comp_input)
+# driver.quit()
