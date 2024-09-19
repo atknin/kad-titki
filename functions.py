@@ -198,7 +198,7 @@ def listor_f(data, myproxy = None):
     listorg_go = config.get('Settings', 'listorg')
     if listorg_go != '1': 
         return data
-    ua = UserAgent()
+    ua = UserAgent(platforms=['pc'])
     headers_list_org = {
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
             "Pragma": "no-cache",
@@ -333,7 +333,7 @@ def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mprox
     print(f'dadata card {inn}')
 
     link = f'https://dadata.ru/find/party/{inn}/'
-    ua = UserAgent()
+    ua = UserAgent(platforms=['pc'])
     headers = {
         "Host": "dadata.ru",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8",

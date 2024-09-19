@@ -17,10 +17,10 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 from seleniumbase import Driver
 
 from write import to_excel
-ua = UserAgent()
+ua = UserAgent(platforms=['pc'])
 print(proxy())
 headless = False
-driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=headless)
+driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.desktop,headless=headless)
 # меняем IP адрес при старте
  
 # proxy_req = requests.get(f'https://changeip.mobileproxy.space/?proxy_key={proxy_key}')
@@ -40,7 +40,7 @@ for el in comp_input:
         process(driver, el,case_id)
         driver.quit()
         time.sleep(2)
-        ua = UserAgent()
+        ua = UserAgent(platforms=['pc'])
         driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=headless)
         time.sleep(5)
     except Exception as e:
@@ -49,7 +49,7 @@ for el in comp_input:
         # raise e
         driver.quit()
         time.sleep(2)
-        ua = UserAgent()
+        ua = UserAgent(platforms=['pc'])
         driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random)
 
 

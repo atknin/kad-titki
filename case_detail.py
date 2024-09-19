@@ -4,7 +4,7 @@ import time
 import os
 from functions import write_stat, parse_instances
 from fake_useragent import UserAgent
-ua = UserAgent()
+ua = UserAgent(platforms=['pc'])
 import platform
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 if not os.path.exists(BASE_DIR + '/data'): os.mkdir(BASE_DIR + '/data')
