@@ -7,8 +7,7 @@ from functools import partial
 import os 
 import requests
 from bs4 import BeautifulSoup
-import random 
-from fake_useragent import UserAgent
+import random  
 
 import time
 from functions import parse_cases_list,da_data,listor_f, proxy,dadata_card_parser,glaz_boga_phones

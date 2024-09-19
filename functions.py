@@ -16,6 +16,18 @@ config.read('config.ini')
 if not os.path.isdir(data_path):  os.mkdir(data_path)
 proxy_key = config.get('Proxy', 'key')
 
+
+def aggento():
+    try:
+        ua = UserAgent(platforms=['pc'])
+    except:
+        try:
+            ua = UserAgent(device=['desktop'])
+        except:
+            ua = UserAgent()
+
+    return ua
+
 def token_dadata():
     a = [config.get('Dadata', 'token1'),config.get('Dadata', 'token2')]
     return random.choice(a)
@@ -198,7 +210,7 @@ def listor_f(data, myproxy = None):
     listorg_go = config.get('Settings', 'listorg')
     if listorg_go != '1': 
         return data
-    ua = UserAgent(platforms=['pc'])
+    ua = aggento()
     headers_list_org = {
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
             "Pragma": "no-cache",
@@ -333,7 +345,8 @@ def dadata_card_parser(data,myproxy = {'http': 'http://Yp5nub:HYjVYpuVuP4e@mprox
     print(f'dadata card {inn}')
 
     link = f'https://dadata.ru/find/party/{inn}/'
-    ua = UserAgent(platforms=['pc'])
+    ua = aggento()
+
     headers = {
         "Host": "dadata.ru",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8",

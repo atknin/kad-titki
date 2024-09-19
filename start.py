@@ -3,7 +3,6 @@ import os
 #!/usr/bin/env python3
 import requests
 from requests.auth import HTTPProxyAuth
-from fake_useragent import UserAgent
 from bs4 import BeautifulSoup, element
 from datetime import datetime
 import itertools
@@ -11,13 +10,14 @@ import json
 import time
 import os,sys
 import subprocess
-from functions import proxy, cach_inn,proxy_key
+from functions import proxy, cach_inn,proxy_key,aggento
 from getcaseid import process
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 from seleniumbase import Driver
 
 from write import to_excel
-ua = UserAgent(platforms=['pc'])
+ua = aggento()
+
 print(proxy())
 headless = False
 driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.desktop,headless=headless)
@@ -40,7 +40,7 @@ for el in comp_input:
         process(driver, el,case_id)
         driver.quit()
         time.sleep(2)
-        ua = UserAgent(platforms=['pc'])
+        ua = aggento()
         driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=headless)
         time.sleep(5)
     except Exception as e:
@@ -49,7 +49,7 @@ for el in comp_input:
         # raise e
         driver.quit()
         time.sleep(2)
-        ua = UserAgent(platforms=['pc'])
+        ua = aggento()
         driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random)
 
 
