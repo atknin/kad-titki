@@ -66,12 +66,12 @@ if __name__ == '__main__':
 #     prox = f'{sys.argv[3]}:{sys.argv[4]}@{proxy_server}'
 #     try:
 
-#         driver = Driver(uc=True, incognito=True, proxy=prox, agent=ua.random, headless2=True)
+#         driver = Driver(uc=True, incognito=True, proxy=prox, agent=ua, headless2=True)
 #         result = process(case, proxy=proxy_server, proxy_auth=proxy_auth)
 #     except:
 #         driver.quit()
 #     driver.quit()
 
 # else:
-#     driver = Driver(uc=True, incognito=True, proxy=prox,agent = ua.random, headless2=True,)
+#     driver = Driver(uc=True, incognito=True, proxy=prox,agent = ua, headless2=True,)
 #     driver.quit()

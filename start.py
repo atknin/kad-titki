@@ -20,7 +20,7 @@ ua = aggento()
 
 print(proxy())
 headless = False
-driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.desktop,headless=headless)
+driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua,headless=headless)
 # меняем IP адрес при старте
  
 # proxy_req = requests.get(f'https://changeip.mobileproxy.space/?proxy_key={proxy_key}')
@@ -41,7 +41,7 @@ for el in comp_input:
         driver.quit()
         time.sleep(2)
         ua = aggento()
-        driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random,headless=headless)
+        driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua,headless=headless)
         time.sleep(5)
     except Exception as e:
         print('ошибка...')
@@ -50,7 +50,7 @@ for el in comp_input:
         driver.quit()
         time.sleep(2)
         ua = aggento()
-        driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua.random)
+        driver = Driver(uc=True, incognito=True, proxy=proxy(), agent  = ua)
 
 
 # записать все в файл
