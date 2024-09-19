@@ -25,7 +25,7 @@
                 $('#b-cases .respondent span').eq(1).remove()
                 data['otvetchik'] = $('#b-cases .respondent span').text().replace(/\s\s+/g, ' ');
                 back_to_python(data);
-            }, 15000 );
+            }, 25000 );
       } catch (err) {
         back_to_python( {'error': err});
       };
